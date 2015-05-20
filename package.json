@@ -1,0 +1,49 @@
+{
+  "author": "吴嘉华",
+  "name": "MyHomework",
+  "version": "0.0.1",
+  "homepage": "",
+  "licenses": {
+    "type": "MIT"
+  },
+  "bugs": "https://github.com/Thinking-Oriented-Programming/my-homework/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Thinking-Oriented-Programming/my-homework.git"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.0.1",
+    "express": "~4.2.0",
+    "express-session": "~1.0.4",
+    "body-parser": "~1.0.0",
+    "jade": "~1.3.0",
+    "passport": "~0.2.0",
+    "passport-local": "~1.0.0",
+    "mongoose": "~3.8.12",
+    "bcrypt-nodejs": "*",
+    "connect-flash": "*",
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.0.0",
+    "debug": "~0.7.4"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-bump": "0.0.6",
+    "grunt-contrib-clean": "^0.4.1",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-copy": "^0.4.1",
+    "grunt-contrib-jade": "^0.14.1",
+    "grunt-contrib-requirejs": "^0.4.4",
+    "grunt-contrib-watch": "^0.4.4",
+    "grunt-conventional-changelog": "^0.1.2",
+    "grunt-express": "1.4.0",
+    "grunt-livescript": "0.5.1",
+    "grunt-newer": "^0.7.0",
+    "grunt-sass": "^0.14.0",
+    "load-grunt-configs": "^0.4.0",
+    "load-grunt-tasks": "^0.6.0",
+    "moment": "^2.10.2",
+    "multer": "^0.1.8",
+    "node-bourbon": "^1.2.3"
+  }
+}
