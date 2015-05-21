@@ -109,6 +109,7 @@ module.exports = (grunt) ->
         tasks: []
         options:
           livereload: true
+          serverreload: true
 
       grunt:
         files: ['Gruntfile.coffee']
