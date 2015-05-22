@@ -24,7 +24,8 @@
     "connect-flash": "*",
     "static-favicon": "~1.0.0",
     "morgan": "~1.0.0",
-    "debug": "~0.7.4"
+    "debug": "~0.7.4",
+    "mysql": "latest"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
