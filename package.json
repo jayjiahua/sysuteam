@@ -44,6 +44,7 @@
     "load-grunt-tasks": "^0.6.0",
     "moment": "^2.10.2",
     "multer": "^0.1.8",
+    "mysql": "^2.6.2",
     "node-bourbon": "^1.2.3",
     "node-mysql": "^0.4.2"
   }

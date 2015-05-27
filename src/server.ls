@@ -23,6 +23,7 @@ user = require './modules/user/init'
 team = require './modules/team/init'
 activity = require './modules/activity/init'
 
+
 routes = (require './routes/index') user, team, activity
 app.use '/', routes
 
