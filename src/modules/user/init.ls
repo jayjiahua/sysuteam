@@ -1,45 +1,33 @@
 require! []
 
-conn = require('../../conf/db').conn
+user = require('../../dao/user/init')
 
 module.exports = {
-    get-user-by-id: (id, callback) ->
-        # 据说这样的写法可以防注入呢
-        sql = "SELECT * FROM ?? WHERE id = ?"
-        inserts = ['Users', conn.escape(id)]
-        sql = conn.format sql, inserts
-        console.log "SQL语句："+sql
-        conn.query sql, (err, result, fields) ->
+    creat-user: (req, res, user-infor) ->
+        user.add-user user-infor, (err, result)->
+            msg = '成功添加用户 Id为：'+result.insertId
+            console.log  msg
             if err
-                throw err
-            console.log '用户信息: ', result[0]
+                res.render 'test', ret:msg
+            else
+                res.render 'test', ret:msg 
 
-    add-user: (userinfor, callback) ->
-        # userinfor = {username: 'bbb', password: 'ccc'}
-
-        sql = "INSERT INTO ?? SET ?"
-        inserts = ['Users', userinfor]
-        sql = conn.format sql, inserts
-        console.log "SQL语句："+sql
-        conn.query sql, (err, result) ->
+    query-user : (req, res, id) ->
+        user.get-user-by-id id, (err, result)->
+            msg = '用户信息:' + result[0]
+            console.log msg
             if err
-                throw err
-            console.log '成功添加用户'
-            console.log 'Id为：' result.insertId
+                res.render 'test', ret:msg
+            else
+                res.render 'test', ret:msg
 
-    update-user-by-id: (id, updatainfor, callback) ->
-        # id = 6
-        # updatainfor = {password:'xxxx', qq: 'xxxxx', weixin: 'xxxxx'}
-
-        sql = "UPDATE ?? SET ? WHERE ?? = ?"
-        inserts = ['Users', updatainfor, 'id', id]
-        sql = conn.format sql, inserts
-        console.log "SQL语句："+sql
-        conn.query sql, (err, result) ->
+    update-user : (req, res, id, update-infor) ->
+        user.update-user-by-id id, update-infor, (err, result)->
+            #这里应该为1因为是用by id
+            msg = '成功修改用户信息\n'+'影响了'+result.affectedRows+'行\n'+'改变了'+result.changedRows+'行'
+            console.log msg
             if err
-                throw err
-            console.log '成功修改用户信息'
-            console.log '影响了'+result.affectedRows+'行' #这里应该为1因为是用by id
-            console.log '改变了'+result.changedRows+'行'
-
+                res.render 'test', ret:msg
+            else
+                res.render 'test', ret:msg
 }
