@@ -4,6 +4,7 @@
 `GET /`
 
     后端给出 Users对象信息+首页对应的队伍数组 渲染index.html
+    （如果没有user信息，渲染start.html）
 ___
 `GET /login`
 
@@ -16,9 +17,9 @@ ___
     username
     password
     output:
-    1//成功
-    0//失败返回
-    //当登陆失败时抛出Err，停留在login。成功则跳转到userinfo
+    0//成功
+    1//失败 停留在login。成功则跳转到index
+
 ___
 `GET /register`
 
@@ -31,8 +32,8 @@ ___
     username
     password
     output:
-    1//成功
-    0//失败
+    0//成功
+    1//失败
 ___
     获取用户信息
 `GET /userinfo`
@@ -57,8 +58,8 @@ ___
 `POST /team/teamid`
 
     output:
-    1//成功
-    0//失败
+    0//成功
+    1//失败
 ___
 `GET /creatteam`
 
@@ -67,7 +68,8 @@ ___
 `POST /creatteam`
 
     input:
-    队伍信息
+    name
+    info
     output:
     成功跳转/team/teamid
 
