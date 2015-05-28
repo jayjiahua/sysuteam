@@ -1,8 +1,8 @@
-require! {express, http, path, multer, 'cookie-parser', 'body-parser', mongoose, 'express-session', './db'}
+require! {express, http, path, multer, 'cookie-parser', 'body-parser', mongoose, 'express-session'}
 logger = require 'morgan'
 flash = require 'connect-flash'
 favicon = require 'static-favicon'
-mongoose.connect db.url
+
 
 app = express!
 server = http.create-server app
@@ -22,6 +22,7 @@ app.use flash!
 user = require './modules/user/init'
 team = require './modules/team/init'
 activity = require './modules/activity/init'
+
 
 routes = (require './routes/index') user, team, activity
 app.use '/', routes
