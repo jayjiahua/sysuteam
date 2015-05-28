@@ -17,7 +17,5 @@ connection.connect!
 
 
 module.exports = {
-    conn: connection,
-    fuck: ->
-        console.log 'connect success!'
+    conn: connection
 }
