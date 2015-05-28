@@ -11,7 +11,15 @@ module.exports = {
         console.log "SQL语句："+sql
         conn.query sql, (err, result, fields) ->
             callback err, result
-            
+
+    login: (username, password, callback) ->
+        # 据说这样的写法可以防注入呢
+        sql = "SELECT * FROM ?? WHERE username = ? AND password = ?"
+        inserts = ['Users', username, password]
+        sql = conn.format sql, inserts
+        console.log "SQL语句："+sql
+        conn.query sql, (err, result, fields) ->
+            callback err, result            
 
     add-user: (user-infor, callback) ->
         # userinfor = {username: 'bbb', password: 'ccc'}
