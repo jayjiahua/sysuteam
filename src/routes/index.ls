@@ -5,12 +5,15 @@ module.exports = (user, team, activity)->
 
   router.get '/', (req, res)!-> res.render 'index', message: req.flash 'message'
 
-  router.get '/testuser', (req, res)!->
-    userinfor = {username: 'bbb', password: 'ccc'}
+  router.get '/queryuser', (req, res)!->
     id = 30
-    updatainfor = {password:'hehe', qq: 'bitch', weixin: 'ass'}
+    user.query-user req, res, id
 
-    user.get-user-by-id 30
-    user.add-user userinfor
-    user.update-user-by-id id, updatainfor
-    res.render 'test', ret:'hehe' 
+  router.get '/creatuser', (req, res)!->
+    user-infor = {username: 'asda', password: 'asdasd'}
+    user.creat-user req, res, user-infor
+    
+  router.get '/updateuser', (req, res)!->
+    id = 30
+    update-infor = {password:'hehe', qq: 'bitch', weixin: 'ass'}
+    user.update-user req, res, id, update-infor
