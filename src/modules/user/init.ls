@@ -3,7 +3,7 @@ require! []
 conn = require('../../conf/db').conn
 
 module.exports = {
-    get_user_by_id: (id, callback) ->
+    get-user-by-id: (id, callback) ->
         # 据说这样的写法可以防注入呢
         sql = "SELECT * FROM ?? WHERE id = ?"
         inserts = ['Users', conn.escape(id)]
@@ -14,7 +14,7 @@ module.exports = {
                 throw err
             console.log '用户信息: ', result[0]
 
-    add_user: (userinfor, callback) ->
+    add-user: (userinfor, callback) ->
         # userinfor = {username: 'bbb', password: 'ccc'}
 
         sql = "INSERT INTO ?? SET ?"
@@ -27,7 +27,7 @@ module.exports = {
             console.log '成功添加用户'
             console.log 'Id为：' result.insertId
 
-    update_user_by_id: (id, updatainfor, callback) ->
+    update-user-by-id: (id, updatainfor, callback) ->
         # id = 6
         # updatainfor = {password:'xxxx', qq: 'xxxxx', weixin: 'xxxxx'}
 

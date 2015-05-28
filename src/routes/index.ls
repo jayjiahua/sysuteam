@@ -7,10 +7,10 @@ module.exports = (user, team, activity)->
 
   router.get '/testuser', (req, res)!->
     userinfor = {username: 'bbb', password: 'ccc'}
-    id = 7
+    id = 30
     updatainfor = {password:'hehe', qq: 'bitch', weixin: 'ass'}
 
-    user.get_user_by_id 7
-    user.add_user userinfor
-    user.update_user_by_id id, updatainfor
+    user.get-user-by-id 30
+    user.add-user userinfor
+    user.update-user-by-id id, updatainfor
     res.render 'test', ret:'hehe' 
