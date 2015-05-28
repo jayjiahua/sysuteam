@@ -19,7 +19,7 @@ module.exports = {
             if err
                 res.render 'test', ret:msg
             else
-                res.render 'test', ret:msg
+                res.render 'test', ret:result[0]['username']
 
     update-user : (req, res, id, update-infor) ->
         user.update-user-by-id id, update-infor, (err, result)->
