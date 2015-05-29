@@ -5,11 +5,22 @@ module.exports = (user, team, activity)->
 
   router.get '/', (req, res)!-> res.render 'index', message: req.flash 'message'
 
+  
+
+  # 只是前端测试用，直接返回静态页面，最后路由的命名不是这样的
   router.get '/userinfo', (req, res)!->
     res.render 'userinfo'
-
   router.get '/createactivity', (req, res)!->
     res.render 'sponsor_activity_create'
+  router.get '/activitydetail', (req, res)!->
+    res.render 'activity_detail'
+  router.get '/testregister', (req, res)!->
+    res.render 'register'
+  router.get '/start', (req, res)!->
+    res.render 'start'
+  router.get '/createactivity', (req, res)!->
+    res.render 'sponsor_activity_create'
+
   # 应为POST
   router.get '/login', (req, res)!->
     username = 'test1'
