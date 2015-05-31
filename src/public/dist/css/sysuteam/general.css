@@ -1,0 +1,21 @@
+body {
+	font-family: Microsoft YaHei;
+	margin: 0;
+	padding: 0;
+}
+#mycontainer {
+	max-width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#footer {
+	margin-top: 30px;
+	text-align: center;
+	height: 100px;
+	padding: 35px;
+	clear: both;
+	background-color: #34495e;
+}
+.form-control {
+	border: 2px solid #1abc9c;
+}

@@ -2,13 +2,16 @@ doctype html
 html
   head
     meta(charset="utf-8")
-    title 中大TEAM-login
+    title 中大TEAM-sponsor_activity_create
     // Loading Bootstrap
     link(href="dist/css/bootstrap.css", rel="stylesheet")
     link(href="dist/css/bootstrap-datetimepicker.css", rel="stylesheet")
     // Loading Flat UI
     link(href="dist/css/flat-ui.min.css", rel="stylesheet")
-    link(href="dist/css/sysuteam.css", rel="stylesheet")
+    // Loading SYSUTEAM
+    link(href="dist/css/sysuteam/sponsor_activity_create.css", rel="stylesheet")
+    link(href="dist/css/sysuteam/general.css", rel="stylesheet")
+    
     script(type="text/javascript", charset="utf-8", src="dist/ueditor/ueditor.config.js")
     script(type="text/javascript", charset="utf-8", src="dist/ueditor/ueditor.all.min.js")
        
@@ -39,11 +42,11 @@ html
       h3(style="text-align:center;") 发布新的活动
       .sac_title_time
         //<!--活动名称-->
-        div.input-group.col-sm-5.col-md-8#composeworktitle
+        div.input-group.col-sm-8.col-md-8#composeworktitle
           span.input-group-addon#basic-addon1 标题
           input#title.form-control(type="text", placeholder="Title", aria-describedby="basic-addon1")
         //<!--活动时间-->
-        div.input-group.col-sm-2.col-md-3#composeworktime
+        div.input-group.col-sm-3.col-md-3#composeworktime
           span.input-group-addon时间
           input.form-control#datetimepicker(type="text" value="2012-05-15 21:05"  size='5')
 
