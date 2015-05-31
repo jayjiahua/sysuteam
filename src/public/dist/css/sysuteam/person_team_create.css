@@ -1,0 +1,12 @@
+.user_portrait {
+	margin-left: calc(50% - 70px);
+	box-shadow: 2px 2px 2px #888888;
+}
+
+.input-group-addon {
+	background-color: #1abc9c;
+	border: 2px solid #1abc9c;
+}
+#team_name {
+	margin-bottom: 10px;
+}

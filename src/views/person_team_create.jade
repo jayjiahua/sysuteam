@@ -2,14 +2,14 @@ doctype html
 html
   head
     meta(charset="utf-8")
-    title 中大TEAM-sponsor_activity_create
+    title 中大TEAM-person_team_create
     // Loading Bootstrap
     link(href="dist/css/bootstrap.css", rel="stylesheet")
     link(href="dist/css/bootstrap-datetimepicker.css", rel="stylesheet")
     // Loading Flat UI
     link(href="dist/css/flat-ui.min.css", rel="stylesheet")
     // Loading SYSUTEAM
-    link(href="dist/css/sysuteam/sponsor_activity_create.css", rel="stylesheet")
+    link(href="dist/css/sysuteam/person_team_create.css", rel="stylesheet")
     link(href="dist/css/sysuteam/general.css", rel="stylesheet")
     
     script(type="text/javascript", charset="utf-8", src="dist/ueditor/ueditor.config.js")
@@ -39,23 +39,19 @@ html
     #mycontainer
       #user_img
         img.img-circle.user_portrait(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
-      h3(style="text-align:center;") 发布新的活动
-      .sac_title_time
-        //<!--活动名称-->
-        div.input-group.col-sm-8.col-md-8#composeworktitle
-          span.input-group-addon#basic-addon1 标题
-          input#title.form-control(type="text", placeholder="Title", aria-describedby="basic-addon1")
-        //<!--活动时间-->
-        div.input-group.col-sm-3.col-md-3#composeworktime
-          span.input-group-addon时间
-          input.form-control#datetimepicker(type="text" value="2012-05-15 21:05"  size='5')
+      h3(style="text-align:center;") 创建新的队伍
+      // 队伍名称
+      #team_name
+        div.input-group
+          span.input-group-addon#basic-addon1 队名
+          input#title.form-control(type="text", placeholder="team name", aria-describedby="basic-addon1")
 
-      // 活动内容
-      #composeworkcontent
+      // 队伍简介
+      #team_info
         script#editor(type="text/plain", style="width:100%;height:500px;")
       br
       p(style="text-align:center;")
-        a.btn.btn-primary(role="button", href="#") 发布
+        a.btn.btn-primary(role="button", href="#") 创建
     // footer
     footer#footer
       p.copyright.text-muted.small Copyright &#169; NO.4 2015. All Rights Reserved
