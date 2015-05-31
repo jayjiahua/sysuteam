@@ -20,7 +20,7 @@ html
         ul.nav.navbar-nav.navbar-right
           li
             p.navbar-text
-              a.navbar-link(href="#")登陆
+              a.navbar-link(href="#") 登陆
         // 搜索
         form.navbar-form.navbar-right(action="#", role="search")
           .form-group
@@ -35,13 +35,13 @@ html
       form.centerdiv
         .input-group
           span#basic-addon1.input-group-addon 用户
-          input.form-control(type="text", placeholder="Username", aria-describedby="basic-addon1")
+          input.form-control(type="text", placeholder="Username", aria-describedby="basic-addon1" id="username")
         br
         .input-group
           span#basic-addon1.input-group-addon 密码
-          input.form-control.password(type="text", placeholder="password", aria-describedby="basic-addon1")
+          input.form-control.password(type="text", placeholder="password", aria-describedby="basic-addon1" id="password")
         br
-        button.centerdiv_bt.btn.btn-embossed.btn-primary.btn-wide
+        button(type="button").centerdiv_bt.btn.btn-embossed.btn-primary.btn-wide#login_btn
           | 登陆
     // footer
     footer#footer
@@ -50,3 +50,4 @@ html
     script(src="dist/js/vendor/jquery.min.js")
     script(src="dist/js/vendor/video.js")
     script(src="dist/js/flat-ui.min.js")
+    script(src="dist/js/login.js")

@@ -21,10 +21,13 @@ module.exports = (user, team, activity)->
   router.get '/createactivity', (req, res)!->
     res.render 'sponsor_activity_create'
 
-  # 应为POST
+
   router.get '/login', (req, res)!->
-    username = 'test1'
-    password = 'shit'
+    res.render 'login'
+
+  router.post '/login', (req, res)!->
+    username = req.body.username
+    password = req.body.password
     user.login req, res, username, password
 
   # 应为POST
