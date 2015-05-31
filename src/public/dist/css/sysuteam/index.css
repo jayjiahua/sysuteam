@@ -28,6 +28,10 @@
 .activities_row {
 	margin-top: 20px;
 }
+
+.checkbox {
+	display: inline-block !important;
+}
 .checkboxbt {
 	display: inline-block;
 	margin-left: 20px;
