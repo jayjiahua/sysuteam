@@ -14,8 +14,7 @@ module.exports = (user, team, activity)->
     res.render 'sponsor_activity_create'
   router.get '/activitydetail', (req, res)!->
     res.render 'activity_detail'
-  router.get '/testregister', (req, res)!->
-    res.render 'register'
+  
   router.get '/start', (req, res)!->
     res.render 'start'
   router.get '/createactivity', (req, res)!->
@@ -30,9 +29,16 @@ module.exports = (user, team, activity)->
     password = req.body.password
     user.login req, res, username, password
 
-  # 应为POST
   router.get '/register', (req, res)!->
-    user-infor = {username: 'bill', password: 'bill'}
+    res.render 'register'
+
+  router.post '/register', (req, res)!->
+    user-infor = {
+      username: req.body.username
+      password: req.body.password
+      mailbox: req.body.mailbox
+      me_info: req.body.me_info
+    }
     user.creat-user req, res, user-infor
 
   router.get '/queryuser', (req, res)!->

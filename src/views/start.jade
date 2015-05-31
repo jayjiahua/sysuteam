@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta(charset="utf-8")
-    title 中大TEAM-login
+    title 中大TEAM-start
     // Loading Bootstrap
     link(href="dist/css/bootstrap.css", rel="stylesheet")
     // Loading Flat UI
@@ -42,13 +42,13 @@ html
           form.centerdiv
             .input-group
               span#basic-addon1.input-group-addon 邮箱
-              input.form-control(type="text", placeholder="email", aria-describedby="basic-addon1")
+              input.form-control(type="text", placeholder="email", id="email", aria-describedby="basic-addon1")
             .input-group
               span#basic-addon1.input-group-addon 用户
-              input.form-control(type="text", placeholder="Username", aria-describedby="basic-addon1")
+              input.form-control(type="text", placeholder="Username", id="username", aria-describedby="basic-addon1")
             .input-group
               span#basic-addon1.input-group-addon 密码
-              input.form-control.password(type="text", placeholder="password", aria-describedby="basic-addon1")
+              input.form-control.password(type="text", placeholder="password", id="password", aria-describedby="basic-addon1")
             .input-group
               span#basic-addon1.input-group-addon 确认
               input.form-control.password(type="text", placeholder="password comfirm", aria-describedby="basic-addon1")
@@ -56,8 +56,8 @@ html
             // Primary tags input
             span(style="font-size:15px; color:#1ABC9C;") 请输入你的技能
             .tagsinput-primary
-              input.tagsinput(type="text", name="tagsinput", data-role="tagsinput", value="设计, 编程, 排球")
-            button.centerdiv_bt.btn.btn-embossed.btn-primary.btn-wide
+              input.tagsinput(type="text", name="tagsinput", id="skill", data-role="tagsinput", value="设计, 编程, 排球")
+            button(type="button").centerdiv_bt.btn.btn-embossed.btn-primary.btn-wide#register_btn
               | 立刻注册
     // footer
     footer#footer
@@ -66,3 +66,4 @@ html
     script(src="dist/js/vendor/jquery.min.js")
     script(src="dist/js/vendor/video.js")
     script(src="dist/js/flat-ui.min.js")
+    script(src="dist/js/register.js")

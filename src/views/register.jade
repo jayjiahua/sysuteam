@@ -15,7 +15,7 @@ html
       .navbar-header
         button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar-collapse-01")
           span.sr-only Toggle navigation
-        a.navbar-brand(href="#") 中大TEAMTEAM
+        a.navbar-brand(href="#") 中大TEAM
       #navbar-collapse-01.collapse.navbar-collapse
         ul.nav.navbar-nav.navbar-right
           li
@@ -35,15 +35,15 @@ html
       form.centerdiv
         .input-group
           span#basic-addon1.input-group-addon 邮箱
-          input.form-control(type="text", placeholder="email", aria-describedby="basic-addon1")
+          input.form-control(type="text", placeholder="email", id="email", aria-describedby="basic-addon1")
         br
         .input-group
           span#basic-addon1.input-group-addon 用户
-          input.form-control(type="text", placeholder="Username", aria-describedby="basic-addon1")
+          input.form-control(type="text", placeholder="Username", id="username", aria-describedby="basic-addon1")
         br
         .input-group
           span#basic-addon1.input-group-addon 密码
-          input.form-control.password(type="text", placeholder="password", aria-describedby="basic-addon1")
+          input.form-control.password(type="text", placeholder="password", id="password", aria-describedby="basic-addon1")
         br
         .input-group
           span#basic-addon1.input-group-addon 确认
@@ -53,8 +53,8 @@ html
         // Primary tags input
         span(style="font-size:15px; color:#1ABC9C;") 请输入你的技能
         .tagsinput-primary
-          input.tagsinput(type="text", name="tagsinput", data-role="tagsinput", value="设计, 编程, 排球")
-        button.centerdiv_bt.btn.btn-embossed.btn-primary.btn-wide
+          input.tagsinput(type="text", name="tagsinput", id="skill", data-role="tagsinput", value="设计, 编程, 排球")
+        button(type="button").centerdiv_bt.btn.btn-embossed.btn-primary.btn-wide#register_btn
           | 注册
     // footer
     footer#footer
@@ -63,3 +63,4 @@ html
     script(src="dist/js/vendor/jquery.min.js")
     script(src="dist/js/vendor/video.js")
     script(src="dist/js/flat-ui.min.js")
+    script(src="dist/js/register.js")

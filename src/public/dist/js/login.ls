@@ -13,7 +13,7 @@ $ '#login_btn' .click !->
       success: (data)->
         if data == "0"
           alert "登陆成功！"
-          window.location.href = '/start'
+          window.location.href = '/'
         else  
           alert "登陆失败！"
       error: (textStatus) !->
