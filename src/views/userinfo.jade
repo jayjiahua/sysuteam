@@ -1,159 +1,132 @@
-doctype html
-html
-  head
-    meta(charset="utf-8")
-    title 中大TEAM-userinfo
-    // Loading Bootstrap
-    link(href="dist/css/bootstrap.css", rel="stylesheet")
-    // Loading Flat UI
-    link(href="dist/css/flat-ui.min.css", rel="stylesheet")
-    // Loading SYSUTEAM
-    link(href="dist/css/sysuteam/userinfo.css", rel="stylesheet")
-    link(href="dist/css/sysuteam/general.css", rel="stylesheet")
-  body
-    nav.navbar.navbar-default(role="navigation")
-      .navbar-header
-        button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar-collapse-01")
-          span.sr-only Toggle navigation
-        a.navbar-brand(href="#") 中大TEAM
-      #navbar-collapse-01.collapse.navbar-collapse
-        ul.nav.navbar-nav.navbar-right
+extend layout
+
+block append head
+  link(href="/dist/css/sysuteam/userinfo.css", rel="stylesheet")
+
+block title
+  title 中大TEAM-用户信息
+ 
+block content
+  #mycontainer
+    #user_img
+      img.img-circle.user_portrait(alt="140x140", data-src="/holder.js/140x140", src="", data-holder-rendered="true")
+    .user_info
+      h5 郑越升
+      p 软件学院 13331365
+      .myskills
+        span.label.label-primary 编程
+        span.label.label-success 设计
+        span.label.label-info 篮球
+        span.label.label-warning 绘画
+        span.label.label-danger 展示
+    .user_dynamic
+      // 活动
+      .row.activities_row
+        .col-sm-6.col-md-4
+          .thumbnail
+            img(data-src="/holder.js/100%x200", alt="...")
+            .caption
+              h6 活动名字
+              span 主办方：
+              span 时间：
+              p.activity_bts
+                a.btn.btn-primary(role="button", href="#") 详情
+                a.btn.btn-danger(role="button", href="#") 队伍
+        .col-sm-6.col-md-4
+          .thumbnail
+            img(data-src="/holder.js/100%x200", alt="...")
+            .caption
+              h6 活动名字
+              span 主办方：
+              span 时间：
+              p.activity_bts
+                a.btn.btn-primary(role="button", href="#") 详情
+                a.btn.btn-danger(role="button", href="#") 队伍
+        .col-sm-6.col-md-4
+          .thumbnail
+            img(data-src="/holder.js/100%x200", alt="...")
+            .caption
+              h6 活动名字
+              span 主办方：
+              span 时间：
+              p.activity_bts
+                a.btn.btn-primary(role="button", href="#") 详情
+                a.btn.btn-danger(role="button", href="#") 队伍
+      .row.activities_row
+        .col-sm-6.col-md-4
+          .thumbnail
+            img(data-src="/holder.js/100%x200", alt="...")
+            .caption
+              h6 活动名字
+              span 主办方：
+              span 时间：
+              p.activity_bts
+                a.btn.btn-primary(role="button", href="#") 详情
+                a.btn.btn-danger(role="button", href="#") 队伍
+        .col-sm-6.col-md-4
+          .thumbnail
+            img(data-src="/holder.js/100%x200", alt="...")
+            .caption
+              h6 活动名字
+              span 主办方：
+              span 时间：
+              p.activity_bts
+                a.btn.btn-primary(role="button", href="#") 详情
+                a.btn.btn-danger(role="button", href="#") 队伍
+        .col-sm-6.col-md-4
+          .thumbnail
+            img(data-src="/holder.js/100%x200", alt="...")
+            .caption
+              h6 活动名字
+              span 主办方：
+              span 时间：
+              p.activity_bts
+                a.btn.btn-primary(role="button", href="#") 详情
+                a.btn.btn-danger(role="button", href="#") 队伍
+      .row.activities_row
+        .col-sm-6.col-md-4
+          .thumbnail
+            img(data-src="/holder.js/100%x200", alt="...")
+            .caption
+              h6 活动名字
+              span 主办方：
+              span 时间：
+              p.activity_bts
+                a.btn.btn-primary(role="button", href="#") 详情
+                a.btn.btn-danger(role="button", href="#") 队伍
+        .col-sm-6.col-md-4
+          .thumbnail
+            img(data-src="/holder.js/100%x200", alt="...")
+            .caption
+              h6 活动名字
+              span 主办方：
+              span 时间：
+              p.activity_bts
+                a.btn.btn-primary(role="button", href="#") 详情
+                a.btn.btn-danger(role="button", href="#") 队伍
+        .col-sm-6.col-md-4
+          .thumbnail
+            img(data-src="/holder.js/100%x200", alt="...")
+            .caption
+              h6 活动名字
+              span 主办方：
+              span 时间：
+              p.activity_bts
+                a.btn.btn-primary(role="button", href="#") 详情
+                a.btn.btn-danger(role="button", href="#") 队伍
+      // 页码
+      .pagination.pagination-success.rightdiv
+        a.btn.btn-success.previous(href="#") Previous
+        ul
           li
-            p.navbar-textf
-              a.navbar-link(href="#") 登陆
-        // 搜索
-        form.navbar-form.navbar-right(action="#", role="search")
-          .form-group
-            .input-group
-              input#navbarInput-01.form-control(type="search", placeholder="Search")
-              span.input-group-btn
-                button.btn(type="submit")
-                  span.fui-search
-      // /.navbar-collapse
-    // /navbar
-    #mycontainer
-      #user_img
-        img.img-circle.user_portrait(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
-      .user_info
-        h5 郑越升
-        p 软件学院 13331365
-        .myskills
-          span.label.label-primary 编程
-          span.label.label-success 设计
-          span.label.label-info 篮球
-          span.label.label-warning 绘画
-          span.label.label-danger 展示
-      .user_dynamic
-        // 活动
-        .row.activities_row
-          .col-sm-6.col-md-4
-            .thumbnail
-              img(data-src="holder.js/100%x200", alt="...")
-              .caption
-                h6 活动名字
-                span 主办方：
-                span 时间：
-                p.activity_bts
-                  a.btn.btn-primary(role="button", href="#") 详情
-                  a.btn.btn-danger(role="button", href="#") 队伍
-          .col-sm-6.col-md-4
-            .thumbnail
-              img(data-src="holder.js/100%x200", alt="...")
-              .caption
-                h6 活动名字
-                span 主办方：
-                span 时间：
-                p.activity_bts
-                  a.btn.btn-primary(role="button", href="#") 详情
-                  a.btn.btn-danger(role="button", href="#") 队伍
-          .col-sm-6.col-md-4
-            .thumbnail
-              img(data-src="holder.js/100%x200", alt="...")
-              .caption
-                h6 活动名字
-                span 主办方：
-                span 时间：
-                p.activity_bts
-                  a.btn.btn-primary(role="button", href="#") 详情
-                  a.btn.btn-danger(role="button", href="#") 队伍
-        .row.activities_row
-          .col-sm-6.col-md-4
-            .thumbnail
-              img(data-src="holder.js/100%x200", alt="...")
-              .caption
-                h6 活动名字
-                span 主办方：
-                span 时间：
-                p.activity_bts
-                  a.btn.btn-primary(role="button", href="#") 详情
-                  a.btn.btn-danger(role="button", href="#") 队伍
-          .col-sm-6.col-md-4
-            .thumbnail
-              img(data-src="holder.js/100%x200", alt="...")
-              .caption
-                h6 活动名字
-                span 主办方：
-                span 时间：
-                p.activity_bts
-                  a.btn.btn-primary(role="button", href="#") 详情
-                  a.btn.btn-danger(role="button", href="#") 队伍
-          .col-sm-6.col-md-4
-            .thumbnail
-              img(data-src="holder.js/100%x200", alt="...")
-              .caption
-                h6 活动名字
-                span 主办方：
-                span 时间：
-                p.activity_bts
-                  a.btn.btn-primary(role="button", href="#") 详情
-                  a.btn.btn-danger(role="button", href="#") 队伍
-        .row.activities_row
-          .col-sm-6.col-md-4
-            .thumbnail
-              img(data-src="holder.js/100%x200", alt="...")
-              .caption
-                h6 活动名字
-                span 主办方：
-                span 时间：
-                p.activity_bts
-                  a.btn.btn-primary(role="button", href="#") 详情
-                  a.btn.btn-danger(role="button", href="#") 队伍
-          .col-sm-6.col-md-4
-            .thumbnail
-              img(data-src="holder.js/100%x200", alt="...")
-              .caption
-                h6 活动名字
-                span 主办方：
-                span 时间：
-                p.activity_bts
-                  a.btn.btn-primary(role="button", href="#") 详情
-                  a.btn.btn-danger(role="button", href="#") 队伍
-          .col-sm-6.col-md-4
-            .thumbnail
-              img(data-src="holder.js/100%x200", alt="...")
-              .caption
-                h6 活动名字
-                span 主办方：
-                span 时间：
-                p.activity_bts
-                  a.btn.btn-primary(role="button", href="#") 详情
-                  a.btn.btn-danger(role="button", href="#") 队伍
-        // 页码
-        .pagination.pagination-success.rightdiv
-          a.btn.btn-success.previous(href="#") Previous
-          ul
-            li
-              a(href="#") 1
-            li
-              a(href="#") 2
-            li
-              a(href="#") 3
-          a.btn.btn-success.next(href="#") Next
-    // footer
-    footer#footer
-      p.copyright.text-muted.small Copyright &#169; NO.4 2015. All Rights Reserved
-    // js
-    script(src="dist/js/vendor/jquery.min.js")
-    script(src="dist/js/vendor/video.js")
-    script(src="dist/js/flat-ui.min.js")
-    script(src="dist/js/application.js")
+            a(href="#") 1
+          li
+            a(href="#") 2
+          li
+            a(href="#") 3
+        a.btn.btn-success.next(href="#") Next
+
+
+
+  block extrajs
+    script(src="/dist/js/application.js")
