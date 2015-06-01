@@ -19,7 +19,16 @@ module.exports = (user, team, activity)->
     res.render 'start'
   router.get '/createactivity', (req, res)!->
     res.render 'sponsor_activity_create'
+  #####
+  router.get '/team', (req, res)!->
+    res.render 'index _teams'
 
+  router.get '/team/:teamid', (req, res)!->
+    console.log '查看队伍,teamid:', req.params.teamid
+    res.render 'team_detail'
+  
+  router.get '/creatteam', (req, res)!->
+    res.render 'person_team_create'
 
   router.get '/login', (req, res)!->
     res.render 'login'

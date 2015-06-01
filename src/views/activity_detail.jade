@@ -1,70 +1,43 @@
-doctype html
-html
-  head
-    meta(charset="utf-8")
-    title 中大TEAM-activity_detail
-    // Loading Bootstrap
-    link(href="dist/css/bootstrap.css", rel="stylesheet")
-    // Loading Flat UI
-    link(href="dist/css/flat-ui.min.css", rel="stylesheet")
-    // Loading SYSUTEAM
-    link(href="dist/css/sysuteam/activity_detail.css", rel="stylesheet")
-    link(href="dist/css/sysuteam/general.css", rel="stylesheet")
-  body
-    nav.navbar.navbar-default(role="navigation")
-      .navbar-header
-        button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar-collapse-01")
-          span.sr-only Toggle navigation
-        a.navbar-brand(href="#") &#20013;&#22823;TEAM
-      #navbar-collapse-01.collapse.navbar-collapse
-        ul.nav.navbar-nav.navbar-right
-          li
-            p.navbar-text
-              a.navbar-link(href="#")中大
-        // 搜索
-        form.navbar-form.navbar-right(action="#", role="search")
-          .form-group
-            .input-group
-              input#navbarInput-01.form-control(type="search", placeholder="Search")
-              span.input-group-btn
-                button.btn(type="submit")
-                  span.fui-search
+extend layout
 
-    #mycontainer
+block append head
+  link(href="/dist/css/sysuteam/activity_detail.css", rel="stylesheet")
 
-      img(src="img/slide0.jpg")
+block title
+  title 中大TEAM-活动详情
+ 
+block content
+  #mycontainer
 
-      #acticity_info
-        h3
-          | 维纳斯歌手大赛&nbsp&nbsp&nbsp
-          span.label.label-danger(style="font-size:15px;") &#27468;&#21809;
-        p
-        p
-          a.btn.btn-primary(role="button", href="#") &#21019;&#38431;
-          a.btn.btn-info(role="button", href="#") &#32452;&#38431;
+    img(src="/img/slide0.jpg")
 
-      .progress
-        .progress-bar(style="width: 80%;")
-      hr
-      pre#activity_detail.
-        \n\t由中山大学团委、中山大学艺术教育中心主办，中山大学广播台承办。每年在中山大学珠海校区、东校区、北校区和南校区分别进行比赛，最终在中山大学南校区进行四校区总决赛。
-        \t维纳斯歌手大赛早已在华南众多高校中声名显赫，在社会上也引起了广泛关注。中山大学广播台优秀的执行力，让维纳斯歌手大赛从启动到宣传，再到报名，都充满了各种创新的元素。而每一场决赛，每一场总决赛，更是精彩纷呈，亮点不断。
-        \t维纳斯歌手大赛挖掘出许多优秀的校园歌手。2009年快女全国20强莫沉曾经是第18届维纳斯歌手大赛珠海校区决赛的冠军。2011年全国首届A Cappella大赛金奖得主、2012年深圳卫视The sing-off清唱团全国十六强Muse.S人声乐团曾是第25届维纳斯歌手大赛珠海校区决赛的冠军，四校总决赛的亚军。
-        
-        \t报名方式：XXXXXXXXX
-        \t截止时间：2015-06-05
-        \t\t        
-      hr
-      p 他们已经参加...
-      #hasjoined
-        img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
-        img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
-        img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
-        img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
-    // footer
-    footer#footer
-      p.copyright.text-muted.small Copyright &#169; NO.4 2015. All Rights Reserved
-    // js
-    script(src="dist/js/vendor/jquery.min.js")
-    script(src="dist/js/vendor/video.js")
-    script(src="dist/js/flat-ui.min.js")
+    #acticity_info
+      h3
+        | 维纳斯歌手大赛&nbsp&nbsp&nbsp
+        span.label.label-danger(style="font-size:15px;") &#27468;&#21809;
+      p
+      p
+        a.btn.btn-primary(role="button", href="#") &#21019;&#38431;
+        a.btn.btn-info(role="button", href="#") &#32452;&#38431;
+
+    .progress
+      .progress-bar(style="width: 80%;")
+    hr
+    pre#activity_detail.
+      \n\t由中山大学团委、中山大学艺术教育中心主办，中山大学广播台承办。每年在中山大学珠海校区、东校区、北校区和南校区分别进行比赛，最终在中山大学南校区进行四校区总决赛。
+      \t维纳斯歌手大赛早已在华南众多高校中声名显赫，在社会上也引起了广泛关注。中山大学广播台优秀的执行力，让维纳斯歌手大赛从启动到宣传，再到报名，都充满了各种创新的元素。而每一场决赛，每一场总决赛，更是精彩纷呈，亮点不断。
+      \t维纳斯歌手大赛挖掘出许多优秀的校园歌手。2009年快女全国20强莫沉曾经是第18届维纳斯歌手大赛珠海校区决赛的冠军。2011年全国首届A Cappella大赛金奖得主、2012年深圳卫视The sing-off清唱团全国十六强Muse.S人声乐团曾是第25届维纳斯歌手大赛珠海校区决赛的冠军，四校总决赛的亚军。
+      
+      \t报名方式：XXXXXXXXX
+      \t截止时间：2015-06-05
+      \t\t        
+    hr
+    p 他们已经参加...
+    #hasjoined
+      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
+      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
+      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
+      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
+
+
+
