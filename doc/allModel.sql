@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `web_course`.`Users` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL COMMENT '用户名',
   `password` VARCHAR(45) NOT NULL COMMENT '用户密码',
+  `nickname` VARCHAR(45) NOT NULL COMMENT 'nickname',
   `create_time` VARCHAR(45) NULL COMMENT '用户创建时间',
   `update_time` VARCHAR(45) NULL COMMENT '用户信息更新时间',
   `path_head_picture` VARCHAR(64) NULL COMMENT '用户头像照片存储路径',

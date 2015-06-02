@@ -2,6 +2,7 @@ require! []
 
 user = require('../../dao/user/init')
 
+
 module.exports = {
     # 注册 成功后设置username，    返回值 0//成功 1//失败
     creat-user: (req, res, user-infor) ->
@@ -11,14 +12,15 @@ module.exports = {
             if err
                 res.send '1'
             else
-                res.cookie 'username', user-infor.username, { maxAge: 900000}
+                res.cookie 'user', user-infor, { maxAge: 900000}
                 res.send '0'
 
     # 登陆 成功后设置username，    返回值 0//成功 1//失败
     login: (req, res, username, password) ->
         user.login username, password, (err, result)->
             if result.length is not 0
-                res.cookie 'username', result[0].username, { maxAge: 900000}
+                res.cookie 'user', result[0], { maxAge: 900000}
+                console.log res.cookie!
                 res.send '0'
             else
                 res.send '1'

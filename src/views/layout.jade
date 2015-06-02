@@ -21,8 +21,12 @@ html
       #navbar-collapse-01.collapse.navbar-collapse
         ul.nav.navbar-nav.navbar-right
           li
-            p.navbar-text
-              a.navbar-link(href="/login") 登陆
+            if !user
+              p.navbar-text
+                a.navbar-link(href="/login") 登陆
+            else
+              p.navbar-text
+                a.navbar-link(href="/login") #{user.nickname}
         // 搜索
         form.navbar-form.navbar-right(action="#", role="search")
           .form-group
