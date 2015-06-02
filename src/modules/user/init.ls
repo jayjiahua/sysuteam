@@ -1,7 +1,26 @@
-require! []
+require! ['crypto']
 
 user = require('../../dao/user/init')
 
+get-hash-password = (raw-password) ->
+  # 加密
+  sha256 = crypto.createHash 'sha256'
+  key = Math.random().toString().slice(11)
+  sha256.update key+raw-password
+  hash = sha256.digest 'hex'
+  enc-password = key + '$' + hash
+  return enc-password
+
+check-password = (raw-password, enc-password) ->
+  # 解密
+  key = (enc-password.split '$')[0]
+  hash = (enc-password.split '$')[1]
+  sha256 = crypto.createHash 'sha256'
+  sha256.update key+raw-password
+  new-hash = sha256.digest 'hex'
+  console.log '存在数据库中的：',hash
+  console.log '解出的：',new-hash
+  return hash == new-hash
 
 module.exports = {
     # 注册 成功后设置username，    返回值 0//成功 1//失败
@@ -18,7 +37,9 @@ module.exports = {
     # 登陆 成功后设置username，    返回值 0//成功 1//失败
     login: (req, res, username, password) ->
         user.login username, password, (err, result)->
-            if result.length is not 0
+            console.log password
+            console.log result[0].password
+            if result.length is not 0 and check-password(password,result[0].password)
                 res.cookie 'user', result[0], { maxAge: 900000}
                 console.log res.cookie!
                 res.send '0'
