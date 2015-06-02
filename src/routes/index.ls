@@ -1,8 +1,18 @@
-require! ['express']
+require! ['express', 'crypto']
 router = express.Router! 
 
 is-authenticated = (req, res, next)-> 
   if req.cookies.user then next! else res.redirect '/login'
+
+get-hash-password = (raw-password) ->
+  # 加密
+  sha256 = crypto.createHash 'sha256'
+  key = Math.random().toString().slice(11)
+  sha256.update key+raw-password
+  hash = sha256.digest 'hex'
+  enc-password = key + '$' + hash
+  return enc-password
+
 
 module.exports = (user, team, activity)->
 
@@ -35,6 +45,10 @@ module.exports = (user, team, activity)->
   router.get '/login', (req, res)!->
     if req.cookies.user then res.redirect '/' else res.render 'login'
 
+  router.get '/logout', (req, res)!->
+    res.clearCookie 'user'
+    res.redirect '/'
+
   router.post '/login', (req, res)!->
     username = req.body.username
     password = req.body.password
@@ -46,7 +60,7 @@ module.exports = (user, team, activity)->
   router.post '/register', (req, res)!->
     user-infor = {
       username: req.body.username
-      password: req.body.password
+      password: get-hash-password req.body.password
       mailbox: req.body.mailbox
       me_info: req.body.me_info
     }
@@ -62,4 +76,4 @@ module.exports = (user, team, activity)->
     user.update-user req, res, id, update-infor
 
   router.get '/check', (req, res)!->
-    res.render 'test', ret:req.cookies.username
+    res.render 'test', ret:req.cookies.user.username
