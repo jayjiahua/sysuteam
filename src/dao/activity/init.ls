@@ -12,7 +12,7 @@ module.exports = {
 		conn.query sql, (err, result, fields) ->
 			callback err, result    
 
-	get-all-activity: (callback) ->
+	get-all-activities: (callback) ->
 		sql = "SELECT * FROM ??"
 		inserts = ['Activities']
 		sql = conn.format sql, inserts

@@ -87,10 +87,10 @@ module.exports = (grunt) ->
           livereload: true
           serverreload: false
           port: 5000
-
+    
     delta:
       options:
-        livereload: false
+        livereload: true
 
       livescript:
         files: ["src/**/*.ls"]
@@ -110,11 +110,10 @@ module.exports = (grunt) ->
         options:
           livereload: true
           serverreload: true
-
       grunt:
         files: ['Gruntfile.coffee']
 
- 
+
   grunt.renameTask "watch", "delta"
 
   grunt.registerTask "watch", [
