@@ -12,7 +12,7 @@ module.exports = {
 		conn.query sql, (err, result, fields) ->
 			callback err, result    
 
-	get-all-activity: (callback) ->
+	get-all-activities: (callback) ->
 		sql = "SELECT * FROM ??"
 		inserts = ['Activities']
 		sql = conn.format sql, inserts
@@ -38,6 +38,7 @@ module.exports = {
 			callback err, result
 
 	delete-activity-by-id: (activity-id, callback) ->
+		#
 		sql = "DELETE FROM Activities WHERE activity_id = ?"
 		inserts = [conn.escape(activity-id)]
 		sql = conn.format sql, inserts

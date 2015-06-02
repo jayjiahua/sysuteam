@@ -3,9 +3,8 @@ router = express.Router!
 
 module.exports = (user, team, activity)->
 
-  router.get '/', (req, res)!-> res.render 'index', message: req.flash 'message'
-
-  
+  router.get '/', (req, res)!-> 
+    activity.get-all-activities req, res
 
   # 只是前端测试用，直接返回静态页面，最后路由的命名不是这样的
   router.get '/userinfo', (req, res)!->
