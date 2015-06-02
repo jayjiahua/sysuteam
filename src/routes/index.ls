@@ -19,6 +19,9 @@ module.exports = (user, team, activity)->
   router.get '/', (req, res)!-> 
     activity.get-all-activities req, res
 
+  router.post '/createteam', is-authenticated, (req, res) !->
+    activity.add-personal-activity req, res
+
   # 只是前端测试用，直接返回静态页面，最后路由的命名不是这样的
   router.get '/userinfo', (req, res)!->
     res.render 'userinfo'
@@ -39,8 +42,9 @@ module.exports = (user, team, activity)->
     console.log '查看队伍,teamid:', req.params.teamid
     res.render 'team_detail'
   
-  router.get '/creatteam', is-authenticated, (req, res)!->
+  router.get '/createteam', is-authenticated, (req, res)!->
     res.render 'person_team_create'
+
 
   router.get '/login', (req, res)!->
     if req.cookies.user then res.redirect '/' else res.render 'login'
