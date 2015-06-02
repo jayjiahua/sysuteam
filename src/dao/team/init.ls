@@ -19,14 +19,28 @@ module.exports = {
         conn.query sql, (err, result, fields) ->
             callback err, result    
 
-    add-team: (activity-id, team-info, callback) ->
+    add-team: (activity-id, team-info, user-id, callback) ->
         # team-info = {name: 'yoxi', info: 'come on', activity_id: activity-id}
         sql = "INSERT INTO ?? SET ?"
         inserts = ['Teamer', team-info]
         sql = conn.format sql, inserts
         console.log "SQL语句："+sql
         conn.query sql, (err, result, fields) ->
-            callback err, result    
+            sql2 = "INSERT INTO Team_user_role(team_id, user_id, role) VALUES (last_insert_id(), #{user-id}, 1)"
+            console.log "SQL语句："+sql
+            conn.query sql, (err, result, fields) ->
+                callback err, result    
+
+    add-personal-team: (team-info, user-id, callback) ->
+        sql = "INSERT INTO ?? SET ?"
+        inserts = ['Teamer', team-info]
+        sql = conn.format sql, inserts
+        console.log "SQL语句："+sql
+        conn.query sql, (err, result, fields) ->
+            sql2 = "INSERT INTO Team_user_role(team_id, user_id, role) VALUES (#{result.insert-id}, #{user-id}, 1)"
+            console.log "SQL语句："+sql2
+            conn.query sql2, (err, result, fields) ->
+                callback err, result    
 
     update-team-by-id: (team-id, update-infor, callback) ->
         # update-info = {name: 'yoxi', info: 'come on'}

@@ -11,6 +11,8 @@ INSERT INTO Users(username, password, nickname) VALUES ("test4", "test4", "测�
 INSERT INTO Users(username, password, nickname) VALUES ("test5", "test5", "测试5");
 INSERT INTO Users(username, password, nickname) VALUES ("test6", "test6", "测试6");
 
+INSERT INTO Activities(name, content, start_time) VALUES ("**personal_activity**", "**personal_activity**", "9999-99-99");
+UPDATE Activities SET id = 0 WHERE name = "**personal_activity**";
 
 INSERT INTO Activities(name, content, start_time, end_time) VALUES ("Activity 1", "This is Activity 1.", "2015-06-01", "2015-06-02");
 INSERT INTO Activities(name, content, start_time, end_time) VALUES ("Activity 2", "This is Activity 2.", "2015-06-02", "2015-06-03");
@@ -19,3 +21,4 @@ INSERT INTO Activities(name, content, start_time, end_time) VALUES ("Activity 4"
 INSERT INTO Activities(name, content, start_time, end_time) VALUES ("Activity 5", "This is Activity 5.", "2015-06-05", "2015-06-06");
 INSERT INTO Activities(name, content, start_time, end_time) VALUES ("Activity 6", "This is Activity 6.", "2015-06-06", "2015-06-07");
 INSERT INTO Activities(name, content, start_time, end_time) VALUES ("Activity 7", "This is Activity 7.", "2015-06-07", "2015-06-08");
+

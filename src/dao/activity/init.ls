@@ -1,6 +1,7 @@
 require! []
 
 conn = require('../../conf/db').conn
+team = require '../team/init'
 
 module.exports = {
 	add-activity: (activity-info, callback) ->
@@ -12,10 +13,25 @@ module.exports = {
 		conn.query sql, (err, result, fields) ->
 			callback err, result    
 
+	#add-personal-activity: (activity-info, user-id, callback) ->
+	#	sql = "INSERT INTO ?? SET ? ; SELECT last_insert_id();"
+	#	inserts = ['Activities', activity-info]
+	#	sql = conn.format sql, inserts
+	#	console.log "SQL语句："+sql
+	#	conn.query sql, (err, result, fields) ->
+	#		console.log result
+	#		add-team result.last_insert_id, activity-info, user-id, callback
+
 	get-all-activities: (callback) ->
 		sql = "SELECT * FROM ??"
 		inserts = ['Activities']
 		sql = conn.format sql, inserts
+		console.log "SQL语句："+sql
+		conn.query sql, (err, result, fields) ->
+			callback err, result
+
+	get-all-personal-activities: (callback) ->
+		sql = "SELECT * FROM Team as t, Users as u, Team_user_role as tr WHERE t.activity_id = 0 AND t.id = tr.team_id AND tr.user_id = u.id"
 		console.log "SQL语句："+sql
 		conn.query sql, (err, result, fields) ->
 			callback err, result
