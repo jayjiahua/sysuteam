@@ -38,6 +38,7 @@ module.exports = {
 			callback err, result
 
 	delete-activity-by-id: (activity-id, callback) ->
+		#
 		sql = "DELETE FROM Activities WHERE activity_id = ?"
 		inserts = [conn.escape(activity-id)]
 		sql = conn.format sql, inserts
