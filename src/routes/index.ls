@@ -1,6 +1,9 @@
 require! ['express']
 router = express.Router! 
 
+is-authenticated = (req, res, next)-> 
+  if req.cookies.user then next! else res.redirect '/login'
+
 module.exports = (user, team, activity)->
 
   router.get '/', (req, res)!-> 
@@ -26,11 +29,11 @@ module.exports = (user, team, activity)->
     console.log '查看队伍,teamid:', req.params.teamid
     res.render 'team_detail'
   
-  router.get '/creatteam', (req, res)!->
+  router.get '/creatteam', is-authenticated, (req, res)!->
     res.render 'person_team_create'
 
   router.get '/login', (req, res)!->
-    res.render 'login'
+    if req.cookies.user then res.redirect '/' else res.render 'login'
 
   router.post '/login', (req, res)!->
     username = req.body.username

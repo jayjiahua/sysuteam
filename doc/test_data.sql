@@ -4,12 +4,12 @@ USE `web_course` ;
 DELETE FROM Users;
 DELETE FROM Activities;
 
-INSERT INTO Users(username, password) VALUES ("test1", "test1");
-INSERT INTO Users(username, password) VALUES ("test2", "test2");
-INSERT INTO Users(username, password) VALUES ("test3", "test3");
-INSERT INTO Users(username, password) VALUES ("test4", "test4");
-INSERT INTO Users(username, password) VALUES ("test5", "test5");
-INSERT INTO Users(username, password) VALUES ("test6", "test6");
+INSERT INTO Users(username, password, nickname) VALUES ("test1", "test1", "测试1");
+INSERT INTO Users(username, password, nickname) VALUES ("test2", "test2", "测试2");
+INSERT INTO Users(username, password, nickname) VALUES ("test3", "test3", "测试3");
+INSERT INTO Users(username, password, nickname) VALUES ("test4", "test4", "测试4");
+INSERT INTO Users(username, password, nickname) VALUES ("test5", "test5", "测试5");
+INSERT INTO Users(username, password, nickname) VALUES ("test6", "test6", "测试6");
 
 
 INSERT INTO Activities(name, content, start_time, end_time) VALUES ("Activity 1", "This is Activity 1.", "2015-06-01", "2015-06-02");
