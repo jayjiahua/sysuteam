@@ -1,0 +1,47 @@
+extend layout
+
+block append head
+  link(href="/dist/css/sysuteam/team_detail.css", rel="stylesheet")
+
+block title
+  title 中大TEAM-队伍详情
+ 
+block content
+  #mycontainer
+
+    img#team_img(src="/img/myteam.jpg")
+
+    #team_info
+      h3
+        | 第四小组&nbsp&nbsp&nbsp
+        span.label.label-danger(style="font-size:15px;") web
+      p
+      p
+        a.btn.btn-primary(role="button", href="#") 加入
+
+    .progress
+      .progress-bar(style="width: 80%;")
+    hr
+    pre#team_detail
+        我们是王青老师旗下的第四分队，主要是做web开发。
+        我们做过两千个项目，代码量超过10行。有着丰富的经验，熟练地掌握各项前端后端平面动画吹牛技术。
+        我们需要一个产品经理，平时可以瞎BB，惹我们生气然后被我们吊起来抽打解闷。
+        男生，自带人身保险，打不还手骂不还口，有意者请参加我们队伍。
+        
+        报名方式：XXXXXXXXX
+      
+    hr
+    p 他们已经参加...
+    #hasjoined
+      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
+      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
+      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
+      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
+
+
+  block extrajs
+    script(type="text/javascript", src="/dist/js/bootstrap-datetimepicker.js", charset="UTF-8")
+    script(type="text/javascript", src="/dist/js/bootstrap-datetimepicker.fr.js", charset="UTF-8")
+    script(type="text/javascript")
+      $('#datetimepicker').datetimepicker();
+    script(type="text/javascript") var ue = UE.getEditor('editor');

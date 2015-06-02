@@ -1,13 +1,42 @@
 doctype html
 html
   head
-    title SYSU TEAM
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap-datetimepicker.min.css')
-    //- link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
+    block head
+    meta(charset="utf-8")
+    block title
+    // Loading Bootstrap
+    link(href="/dist/css/bootstrap.css", rel="stylesheet")
+    // Loading Flat UI
+    link(href="/dist/css/flat-ui.min.css", rel="stylesheet") 
+    link(href="/dist/css/sysuteam/general.css", rel="stylesheet")
+    script(src="/dist/js/vendor/jquery.min.js")
+    script(src="/dist/js/flat-ui.min.js")
   body
+    //导航栏
+    nav.navbar.navbar-default(role="navigation")
+      .navbar-header
+        button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar-collapse-01")
+          span.sr-only Toggle navigation
+        a.navbar-brand(href="/") 中大TEAM
+      #navbar-collapse-01.collapse.navbar-collapse
+        ul.nav.navbar-nav.navbar-right
+          li
+            p.navbar-text
+              a.navbar-link(href="/login") 登陆
+        // 搜索
+        form.navbar-form.navbar-right(action="#", role="search")
+          .form-group
+            .input-group
+              input#navbarInput-01.form-control(type="search", placeholder="Search")
+              span.input-group-btn
+                button.btn(type="submit")
+                  span.fui-search
+    // /导航栏
     block content
-    script(type="application/javascript", src="/javascript/jquery.min.js")
-    script(type="application/javascript", src="/javascript/bootstrap.min.js")
-    script(type="application/javascript", src="/javascript/bootstrap-datetimepicker.min.js")
-    script(type="application/javascript", src="http://localhost:35729/livereload.js")
+    // footer
+    footer#footer
+      p.copyright.text-muted.small Copyright &#169; NO.4 2015. All Rights Reserved
+    // js
+    script(src="/dist/js/vendor/video.js")
+    block extrajs
+

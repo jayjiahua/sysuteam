@@ -1,0 +1,161 @@
+body {
+	font-family: Microsoft YaHei;
+	margin: 0;
+	padding: 0;
+}
+#mycontainer {
+	max-width: 1000px;
+	margin-right: auto;
+	margin-left: auto;
+}
+.centerdiv {
+	margin-left: auto;
+	margin-right: auto;
+	width: 350px;
+}
+.centerdiv_bt {
+	margin-left: 105px;
+}
+#footer {
+	margin-top: 30px;
+	text-align: center;
+	height: 100px;
+	padding: 35px;
+	clear: both;
+	background-color: #34495e;
+}
+.sysuteamslide {
+	margin-left:auto;
+	margin-right:auto;
+	max-width: 1000px;
+}
+.slidetext {
+	text-align: left;
+	background-color: rgba(0,0,0,0.3);
+	width: 100%;
+	height: 100px;
+	left: 0;
+	top: calc(100% - 100px);
+	padding: 20px;
+}
+.slidetext h4 {
+	margin: 0;
+}
+.rightdiv {
+	float:right;
+	clear: both;
+}
+.activity_bts {
+	width: 130px;
+	position: relative;
+	left: calc(100% - 130px);
+	margin-bottom: 0;
+}
+.activities_row {
+	margin-top: 20px;
+}
+.clearbothdiv {
+	clear:both;
+}
+.checkbox {
+	display: inline-block !important;
+}
+.checkboxbt {
+	display: inline-block;
+	margin-left: 20px;
+}
+.category {
+	padding: 0 20px;
+	margin-top: 20px;
+	background-color: #f3f3f3;
+	border-radius: 5px;
+}
+.user_portrait {
+	margin-left: calc(50% - 70px);
+	box-shadow: 2px 2px 2px #888888;
+}
+
+.input-group-addon {
+	background-color: #1abc9c;
+	border: 2px solid #1abc9c;
+}
+.form-control {
+	border: 2px solid #1abc9c;
+}
+#hasjoined {
+	padding: 20px;
+}
+@media(min-width:767px) {
+	#user_img {
+		background: url(../../img/userimg.jpg)  no-repeat center center !important;
+	    background-size: 100% auto !important;
+		width: 100%;
+		height: 180px;
+		padding: 20px;
+		float: left;
+		clear: both;
+		margin-bottom: 20px;
+	}
+	.user_info {
+		width: 25%;
+		padding: 20px;
+		float: left;
+		clear: left;
+		background-color: #e5e9ea;
+		border-radius: 6px;
+		margin-top: 20px;
+	}
+	.user_dynamic {
+		width: 75%;
+		padding: 0 20px;
+		float: right;
+	}
+}
+@media(max-width:767px) {
+	#user_img {
+		background: url(../../img/userimg.jpg)  no-repeat center center !important;
+	    background-size: 100% auto !important;
+		width: 100%;
+		height: 180px;
+		padding: 20px;
+		margin-bottom: 20px;
+	}
+	.user_info {
+		padding: 20px;
+		background-color: #e5e9ea;
+		border-radius: 6px;
+		text-align: center;
+		margin-bottom: 20px;
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+	.user_dynamic {
+		width: 100%;
+		padding: 0 20px;
+	}
+	#acticity_info {
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+	#acticity_detail {
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+	.progress {
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+}
+
+/*CSS for page sponsor_activity_create*/
+.sac_title_time {
+	margin-bottom: 80px;
+}
+.sac_title_time #composeworktitle {
+	float: left;
+}
+
+.sac_title_time #composeworktime {
+	float: right;
+}
+

@@ -1,0 +1,37 @@
+extend layout
+
+block append head
+  link(href="/dist/css/sysuteam/register.css", rel="stylesheet")
+
+block title
+  title 中大TEAM-注册
+ 
+block content
+  #mycontainer
+    form.centerdiv
+      .input-group
+        span#basic-addon1.input-group-addon 邮箱
+        input.form-control(type="text", placeholder="email", id="email", aria-describedby="basic-addon1")
+      br
+      .input-group
+        span#basic-addon1.input-group-addon 用户
+        input.form-control(type="text", placeholder="Username", id="username", aria-describedby="basic-addon1")
+      br
+      .input-group
+        span#basic-addon1.input-group-addon 密码
+        input.form-control.password(type="text", placeholder="password", id="password", aria-describedby="basic-addon1")
+      br
+      .input-group
+        span#basic-addon1.input-group-addon 确认
+        input.form-control.password(type="text", placeholder="password comfirm", aria-describedby="basic-addon1")
+      br
+      // 技能标签
+      // Primary tags input
+      span(style="font-size:15px; color:#1ABC9C;") 请输入你的技能
+      .tagsinput-primary
+        input.tagsinput(type="text", name="tagsinput", id="skill", data-role="tagsinput", value="设计, 编程, 排球")
+      button(type="button").centerdiv_bt.btn.btn-embossed.btn-primary.btn-wide#register_btn
+        | 注册
+
+  block extrajs
+    script(src="/dist/js/register.js")
