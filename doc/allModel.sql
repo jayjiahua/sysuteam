@@ -87,12 +87,7 @@ CREATE TABLE IF NOT EXISTS `web_course`.`Teamer` (
   `activity_id` INT(11) NOT NULL COMMENT '引用Activities表的活动id，从而知道每个队伍属于哪个活动',
   `typee` TEXT NULL,
   PRIMARY KEY (`id`),
-  INDEX `id_idx` (`activity_id` ASC),
-  CONSTRAINT `id`
-    FOREIGN KEY (`activity_id`)
-    REFERENCES `web_course`.`Activities` (`id`)
-        ON DELETE CASCADE
-    ON UPDATE CASCADE)
+  INDEX `id_idx` (`activity_id` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -106,17 +101,7 @@ CREATE TABLE IF NOT EXISTS `web_course`.`Team_user_role` (
   `role` INT(11) NOT NULL COMMENT '用户角色，引用AuthItemChild',
   PRIMARY KEY (`team_id`, `user_id`, `role`),
   INDEX `id_idx` (`user_id` ASC),
-  INDEX `parent_idx` (`role` ASC),
-  CONSTRAINT `role_id`
-    FOREIGN KEY (`role`)
-    REFERENCES `web_course`.`Role` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `teamer_id`
-    FOREIGN KEY (`team_id`)
-    REFERENCES `web_course`.`Teamer` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+  INDEX `parent_idx` (`role` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COMMENT = '第一个队伍中，一个人，所承担的角色，或者一个角色所继承的角色，存储权限的数据库';
@@ -144,17 +129,7 @@ CREATE TABLE IF NOT EXISTS `web_course`.`Comment` (
   `push_time` VARCHAR(45) NOT NULL COMMENT '评论发布的时间',
   INDEX `id_idx` (`user_id` ASC),
   INDEX `id_idx1` (`team_id` ASC),
-  PRIMARY KEY (`team_id`, `user_id`),
-  CONSTRAINT `id111`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `web_course`.`Users` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `id222`
-    FOREIGN KEY (`team_id`)
-    REFERENCES `web_course`.`Teamer` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+  PRIMARY KEY (`team_id`, `user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COMMENT = '用户评论'
