@@ -17,7 +17,10 @@ get-hash-password = (raw-password) ->
 module.exports = (user, team, activity)->
 
   router.get '/', (req, res)!-> 
-    activity.get-all-activities req, res
+    activity.get-all-personal-activities req, res
+
+  router.get '/createteam', is-authenticated, (req, res)!->
+    res.render 'person_team_create', user: req.cookies.user
 
   router.post '/createteam', is-authenticated, (req, res) !->
     activity.add-personal-activity req, res
@@ -38,13 +41,10 @@ module.exports = (user, team, activity)->
   router.get '/team', (req, res)!->
     res.render 'index _teams'
 
-  router.get '/team/:teamid', (req, res)!->
-    console.log '查看队伍,teamid:', req.params.teamid
-    res.render 'team_detail'
-  
-  router.get '/createteam', is-authenticated, (req, res)!->
-    res.render 'person_team_create'
-
+  router.get '/team/:teamid', is-authenticated, (req, res)!->
+    team.get-team-by-id req, res, parse-int req.params.teamid
+    #console.log '查看队伍,teamid:', req.params.teamid
+    
 
   router.get '/login', (req, res)!->
     if req.cookies.user then res.redirect '/' else res.render 'login'

@@ -19,6 +19,8 @@ module.exports = {
         conn.query sql, (err, result, fields) ->
             callback err, result    
 
+
+
     add-team: (activity-id, team-info, user-id, callback) ->
         # team-info = {name: 'yoxi', info: 'come on', activity_id: activity-id}
         sql = "INSERT INTO ?? SET ?"
@@ -75,8 +77,8 @@ module.exports = {
         conn.query sql, (err, result) ->
             callback err, result
 
-    add-teammate: (team-id, user-id, role, callback) ->
-        info = {team_id: team-id, user_id: user-id, role: role}
+    add-teammate: (team-id, user-id, callback) ->
+        info = {team_id: team-id, user_id: user-id, role: 2}
         sql = "INSERT INTO ?? SET ?"
         inserts = ['Team_user_role', info]
         sql = conn.format sql, inserts

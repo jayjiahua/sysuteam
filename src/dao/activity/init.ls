@@ -31,7 +31,8 @@ module.exports = {
 			callback err, result
 
 	get-all-personal-activities: (callback) ->
-		sql = "SELECT * FROM Team as t, Users as u, Team_user_role as tr WHERE t.activity_id = 0 AND t.id = tr.team_id AND tr.user_id = u.id"
+		#sql = "SELECT * FROM Teamer WHERE activity_id = 0"
+		sql = "SELECT * FROM Teamer as t, Users as u, Team_user_role as tr WHERE t.activity_id = 0 AND t.id = tr.team_id AND tr.user_id = u.id AND tr.role = 1"
 		console.log "SQL语句："+sql
 		conn.query sql, (err, result, fields) ->
 			callback err, result
