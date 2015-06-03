@@ -30,11 +30,11 @@
         UEDITOR_HOME_URL: URL
 
         // 服务器统一请求接口路径
-        , serverUrl: URL + "php/controller.php"
+        , serverUrl: URL+'ue'
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
-        
-        , toolbars: [["source","undo","redo","insertunorderedlist","insertorderedlist","link","unlink","cleardoc","searchreplace","|","simpleupload","insertimage","music","snapscreen","emotion","insertvideo","attachment","horizontal","bold","italic","underline","strikethrough","forecolor","backcolor","justifyleft","justifycenter","justifyright","removeformat","fontfamily","fontsize","imagenone","imageleft","imageright","imagecenter"]]
+
+        , toolbars: [["fullscreen","source","undo","redo","insertunorderedlist","insertorderedlist","link","unlink","help","simpleupload","insertimage","emotion","pagebreak","date","bold","italic","fontborder","strikethrough","underline","forecolor","justifyleft","justifycenter","justifyright","justifyjustify","paragraph","rowspacingbottom","rowspacingtop","lineheight"]]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{
         //    'anchor':'', 'undo':''
@@ -80,6 +80,8 @@
         //,readonly : false //编辑器初始化结束后,编辑区域是否是只读的，默认是false
 
         //,autoClearEmptyNode : true //getContent时，是否删除空的inlineElement节点（包括嵌套的情况）
+
+        //,fullscreen : false //是否开启初始化时即全屏，默认关闭
 
         //,imagePopup:true      //图片操作的浮层开关，默认打开
 
@@ -152,25 +154,21 @@
 
         //,autoTransWordToList:false  //禁止word中粘贴进来的列表自动变成列表标签
 
-        //fontfamily
-        //字体设置 label留空支持多语言自动切换，若配置，则以配置值为准
-        //,'fontfamily':[
-        //    { label:'',name:'songti',val:'宋体,SimSun'},
-        //    { label:'',name:'kaiti',val:'楷体,楷体_GB2312, SimKai'},
-        //    { label:'',name:'yahei',val:'微软雅黑,Microsoft YaHei'},
-        //    { label:'',name:'heiti',val:'黑体, SimHei'},
-        //    { label:'',name:'lishu',val:'隶书, SimLi'},
-        //    { label:'',name:'andaleMono',val:'andale mono'},
-        //    { label:'',name:'arial',val:'arial, helvetica,sans-serif'},
-        //    { label:'',name:'arialBlack',val:'arial black,avant garde'},
-        //    { label:'',name:'comicSansMs',val:'comic sans ms'},
-        //    { label:'',name:'impact',val:'impact,chicago'},
-        //    { label:'',name:'timesNewRoman',val:'times new roman'}
-        //]
+        //paragraph
+        //段落格式 值留空时支持多语言自动识别，若配置，则以配置值为准
+        //,'paragraph':{'p':'', 'h1':'', 'h2':'', 'h3':'', 'h4':'', 'h5':'', 'h6':''}
 
-        //fontsize
-        //字号
-        //,'fontsize':[10, 11, 12, 14, 16, 18, 20, 24, 36]
+        //rowspacingtop
+        //段间距 值和显示的名字相同
+        //,'rowspacingtop':['5', '10', '15', '20', '25']
+
+        //rowspacingBottom
+        //段间距 值和显示的名字相同
+        //,'rowspacingbottom':['5', '10', '15', '20', '25']
+
+        //lineheight
+        //行内间距 值和显示的名字相同
+        //,'lineheight':['1', '1.5','1.75','2', '3', '4', '5']
 
         //快捷菜单
         //,shortcutMenu:["fontfamily", "fontsize", "bold", "italic", "underline", "forecolor", "backcolor", "insertorderedlist", "insertunorderedlist"]
@@ -179,13 +177,6 @@
         //点击tab键时移动的距离,tabSize倍数，tabNode什么字符做为单位
         //,tabSize:4
         //,tabNode:'&nbsp;'
-
-        //removeFormat
-        //清除格式时可以删除的标签和属性
-        //removeForamtTags标签
-        //,removeFormatTags:'b,big,code,del,dfn,em,font,i,ins,kbd,q,samp,small,span,strike,strong,sub,sup,tt,u,var'
-        //removeFormatAttributes属性
-        //,removeFormatAttributes:'class,style,lang,width,height,align,hspace,valign'
 
         //undo
         //可以最多回退的次数,默认20
@@ -198,6 +189,10 @@
         //,scaleEnabled:false
         //,minFrameWidth:800    //编辑器拖动时最小宽度,默认800
         //,minFrameHeight:220  //编辑器拖动时最小高度,默认220
+
+        //pageBreakTag
+        //分页标识符,默认是_ueditor_page_break_tag_
+        //,pageBreakTag:'_ueditor_page_break_tag_'
 
         //sourceEditor
         //源码的查看方式,codemirror 是代码高亮，textarea是文本框,默认是codemirror
