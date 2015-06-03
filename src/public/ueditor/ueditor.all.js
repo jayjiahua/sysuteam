@@ -11491,337 +11491,493 @@ UE.plugins['link'] = function(){
     };
 };
 
-// plugins/removeformat.js
+// plugins/paragraph.js
 /**
- * 清除格式
+ * 段落样式
  * @file
  * @since 1.2.6.1
  */
 
 /**
- * 清除文字样式
- * @command removeformat
+ * 段落格式
+ * @command paragraph
  * @method execCommand
  * @param { String } cmd 命令字符串
- * @param   {String}   tags     以逗号隔开的标签。如：strong
- * @param   {String}   style    样式如：color
- * @param   {String}   attrs    属性如:width
+ * @param {String}   style               标签值为：'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+ * @param {Object}   attrs               标签的属性
  * @example
  * ```javascript
- * editor.execCommand( 'removeformat', 'strong','color','width' );
+ * editor.execCommand( 'Paragraph','h1','{
+ *     class:'test'
+ * }' );
  * ```
  */
 
-UE.plugins['removeformat'] = function(){
-    var me = this;
-    me.setOpt({
-       'removeFormatTags': 'b,big,code,del,dfn,em,font,i,ins,kbd,q,samp,small,span,strike,strong,sub,sup,tt,u,var',
-       'removeFormatAttributes':'class,style,lang,width,height,align,hspace,valign'
-    });
-    me.commands['removeformat'] = {
-        execCommand : function( cmdName, tags, style, attrs,notIncludeA ) {
+/**
+ * 返回选区内节点标签名
+ * @command paragraph
+ * @method queryCommandValue
+ * @param { String } cmd 命令字符串
+ * @return { String } 节点标签名
+ * @example
+ * ```javascript
+ * editor.queryCommandValue( 'Paragraph' );
+ * ```
+ */
 
-            var tagReg = new RegExp( '^(?:' + (tags || this.options.removeFormatTags).replace( /,/g, '|' ) + ')$', 'i' ) ,
-                removeFormatAttributes = style ? [] : (attrs || this.options.removeFormatAttributes).split( ',' ),
-                range = new dom.Range( this.document ),
-                bookmark,node,parent,
-                filter = function( node ) {
-                    return node.nodeType == 1;
-                };
+UE.plugins['paragraph'] = function() {
+    var me = this,
+        block = domUtils.isBlockElm,
+        notExchange = ['TD','LI','PRE'],
 
-            function isRedundantSpan (node) {
-                if (node.nodeType == 3 || node.tagName.toLowerCase() != 'span'){
-                    return 0;
-                }
-                if (browser.ie) {
-                    //ie 下判断实效，所以只能简单用style来判断
-                    //return node.style.cssText == '' ? 1 : 0;
-                    var attrs = node.attributes;
-                    if ( attrs.length ) {
-                        for ( var i = 0,l = attrs.length; i<l; i++ ) {
-                            if ( attrs[i].specified ) {
-                                return 0;
-                            }
-                        }
-                        return 1;
+        doParagraph = function(range,style,attrs,sourceCmdName){
+            var bookmark = range.createBookmark(),
+                filterFn = function( node ) {
+                    return   node.nodeType == 1 ? node.tagName.toLowerCase() != 'br' &&  !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace( node );
+                },
+                para;
+
+            range.enlarge( true );
+            var bookmark2 = range.createBookmark(),
+                current = domUtils.getNextDomNode( bookmark2.start, false, filterFn ),
+                tmpRange = range.cloneRange(),
+                tmpNode;
+            while ( current && !(domUtils.getPosition( current, bookmark2.end ) & domUtils.POSITION_FOLLOWING) ) {
+                if ( current.nodeType == 3 || !block( current ) ) {
+                    tmpRange.setStartBefore( current );
+                    while ( current && current !== bookmark2.end && !block( current ) ) {
+                        tmpNode = current;
+                        current = domUtils.getNextDomNode( current, false, null, function( node ) {
+                            return !block( node );
+                        } );
                     }
+                    tmpRange.setEndAfter( tmpNode );
+                    
+                    para = range.document.createElement( style );
+                    if(attrs){
+                        domUtils.setAttributes(para,attrs);
+                        if(sourceCmdName && sourceCmdName == 'customstyle' && attrs.style){
+                            para.style.cssText = attrs.style;
+                        }
+                    }
+                    para.appendChild( tmpRange.extractContents() );
+                    //需要内容占位
+                    if(domUtils.isEmptyNode(para)){
+                        domUtils.fillChar(range.document,para);
+                        
+                    }
+
+                    tmpRange.insertNode( para );
+
+                    var parent = para.parentNode;
+                    //如果para上一级是一个block元素且不是body,td就删除它
+                    if ( block( parent ) && !domUtils.isBody( para.parentNode ) && utils.indexOf(notExchange,parent.tagName)==-1) {
+                        //存储dir,style
+                        if(!(sourceCmdName && sourceCmdName == 'customstyle')){
+                            parent.getAttribute('dir') && para.setAttribute('dir',parent.getAttribute('dir'));
+                            //trace:1070
+                            parent.style.cssText && (para.style.cssText = parent.style.cssText + ';' + para.style.cssText);
+                            //trace:1030
+                            parent.style.textAlign && !para.style.textAlign && (para.style.textAlign = parent.style.textAlign);
+                            parent.style.textIndent && !para.style.textIndent && (para.style.textIndent = parent.style.textIndent);
+                            parent.style.padding && !para.style.padding && (para.style.padding = parent.style.padding);
+                        }
+
+                        //trace:1706 选择的就是h1-6要删除
+                        if(attrs && /h\d/i.test(parent.tagName) && !/h\d/i.test(para.tagName) ){
+                            domUtils.setAttributes(parent,attrs);
+                            if(sourceCmdName && sourceCmdName == 'customstyle' && attrs.style){
+                                parent.style.cssText = attrs.style;
+                            }
+                            domUtils.remove(para,true);
+                            para = parent;
+                        }else{
+                            domUtils.remove( para.parentNode, true );
+                        }
+
+                    }
+                    if(  utils.indexOf(notExchange,parent.tagName)!=-1){
+                        current = parent;
+                    }else{
+                       current = para;
+                    }
+
+
+                    current = domUtils.getNextDomNode( current, false, filterFn );
+                } else {
+                    current = domUtils.getNextDomNode( current, true, filterFn );
                 }
-                return !node.attributes.length;
             }
-            function doRemove( range ) {
-
-                var bookmark1 = range.createBookmark();
-                if ( range.collapsed ) {
-                    range.enlarge( true );
-                }
-
-                //不能把a标签切了
-                if(!notIncludeA){
-                    var aNode = domUtils.findParentByTagName(range.startContainer,'a',true);
-                    if(aNode){
-                        range.setStartBefore(aNode);
-                    }
-
-                    aNode = domUtils.findParentByTagName(range.endContainer,'a',true);
-                    if(aNode){
-                        range.setEndAfter(aNode);
-                    }
-
-                }
-
-
-                bookmark = range.createBookmark();
-
-                node = bookmark.start;
-
-                //切开始
-                while ( (parent = node.parentNode) && !domUtils.isBlockElm( parent ) ) {
-                    domUtils.breakParent( node, parent );
-
-                    domUtils.clearEmptySibling( node );
-                }
-                if ( bookmark.end ) {
-                    //切结束
-                    node = bookmark.end;
-                    while ( (parent = node.parentNode) && !domUtils.isBlockElm( parent ) ) {
-                        domUtils.breakParent( node, parent );
-                        domUtils.clearEmptySibling( node );
-                    }
-
-                    //开始去除样式
-                    var current = domUtils.getNextDomNode( bookmark.start, false, filter ),
-                        next;
-                    while ( current ) {
-                        if ( current == bookmark.end ) {
-                            break;
-                        }
-
-                        next = domUtils.getNextDomNode( current, true, filter );
-
-                        if ( !dtd.$empty[current.tagName.toLowerCase()] && !domUtils.isBookmarkNode( current ) ) {
-                            if ( tagReg.test( current.tagName ) ) {
-                                if ( style ) {
-                                    domUtils.removeStyle( current, style );
-                                    if ( isRedundantSpan( current ) && style != 'text-decoration'){
-                                        domUtils.remove( current, true );
-                                    }
-                                } else {
-                                    domUtils.remove( current, true );
-                                }
-                            } else {
-                                //trace:939  不能把list上的样式去掉
-                                if(!dtd.$tableContent[current.tagName] && !dtd.$list[current.tagName]){
-                                    domUtils.removeAttributes( current, removeFormatAttributes );
-                                    if ( isRedundantSpan( current ) ){
-                                        domUtils.remove( current, true );
-                                    }
-                                }
-
-                            }
-                        }
-                        current = next;
-                    }
-                }
-                //trace:1035
-                //trace:1096 不能把td上的样式去掉，比如边框
-                var pN = bookmark.start.parentNode;
-                if(domUtils.isBlockElm(pN) && !dtd.$tableContent[pN.tagName] && !dtd.$list[pN.tagName]){
-                    domUtils.removeAttributes(  pN,removeFormatAttributes );
-                }
-                pN = bookmark.end.parentNode;
-                if(bookmark.end && domUtils.isBlockElm(pN) && !dtd.$tableContent[pN.tagName]&& !dtd.$list[pN.tagName]){
-                    domUtils.removeAttributes(  pN,removeFormatAttributes );
-                }
-                range.moveToBookmark( bookmark ).moveToBookmark(bookmark1);
-                //清除冗余的代码 <b><bookmark></b>
-                var node = range.startContainer,
-                    tmp,
-                    collapsed = range.collapsed;
-                while(node.nodeType == 1 && domUtils.isEmptyNode(node) && dtd.$removeEmpty[node.tagName]){
-                    tmp = node.parentNode;
-                    range.setStartBefore(node);
-                    //trace:937
-                    //更新结束边界
-                    if(range.startContainer === range.endContainer){
-                        range.endOffset--;
-                    }
-                    domUtils.remove(node);
-                    node = tmp;
-                }
-
-                if(!collapsed){
-                    node = range.endContainer;
-                    while(node.nodeType == 1 && domUtils.isEmptyNode(node) && dtd.$removeEmpty[node.tagName]){
-                        tmp = node.parentNode;
-                        range.setEndBefore(node);
+            return range.moveToBookmark( bookmark2 ).moveToBookmark( bookmark );
+        };
+    me.setOpt('paragraph',{'p':'', 'h1':'', 'h2':'', 'h3':'', 'h4':'', 'h5':'', 'h6':''});
+    me.commands['paragraph'] = {
+        execCommand : function( cmdName, style,attrs,sourceCmdName ) {
+            var range = this.selection.getRange();
+             //闭合时单独处理
+            if(range.collapsed){
+                var txt = this.document.createTextNode('p');
+                range.insertNode(txt);
+                //去掉冗余的fillchar
+                if(browser.ie){
+                    var node = txt.previousSibling;
+                    if(node && domUtils.isWhitespace(node)){
                         domUtils.remove(node);
-
-                        node = tmp;
                     }
-
-
+                    node = txt.nextSibling;
+                    if(node && domUtils.isWhitespace(node)){
+                        domUtils.remove(node);
+                    }
                 }
+
+            }
+            range = doParagraph(range,style,attrs,sourceCmdName);
+            if(txt){
+                range.setStartBefore(txt).collapse(true);
+                pN = txt.parentNode;
+
+                domUtils.remove(txt);
+
+                if(domUtils.isBlockElm(pN)&&domUtils.isEmptyNode(pN)){
+                    domUtils.fillNode(this.document,pN);
+                }
+
             }
 
-
-
-            range = this.selection.getRange();
-            doRemove( range );
+            if(browser.gecko && range.collapsed && range.startContainer.nodeType == 1){
+                var child = range.startContainer.childNodes[range.startOffset];
+                if(child && child.nodeType == 1 && child.tagName.toLowerCase() == style){
+                    range.setStart(child,0).collapse(true);
+                }
+            }
+            //trace:1097 原来有true，原因忘了，但去了就不能清除多余的占位符了
             range.select();
 
-        }
 
-    };
-
-};
-
-
-// plugins/horizontal.js
-/**
- * 插入分割线插件
- * @file
- * @since 1.2.6.1
- */
-
-/**
- * 插入分割线
- * @command horizontal
- * @method execCommand
- * @param { String } cmdName 命令字符串
- * @example
- * ```javascript
- * editor.execCommand( 'horizontal' );
- * ```
- */
-UE.plugins['horizontal'] = function(){
-    var me = this;
-    me.commands['horizontal'] = {
-        execCommand : function( cmdName ) {
-            var me = this;
-            if(me.queryCommandState(cmdName)!==-1){
-                me.execCommand('insertHtml','<hr>');
-                var range = me.selection.getRange(),
-                    start = range.startContainer;
-                if(start.nodeType == 1 && !start.childNodes[range.startOffset] ){
-
-                    var tmp;
-                    if(tmp = start.childNodes[range.startOffset - 1]){
-                        if(tmp.nodeType == 1 && tmp.tagName == 'HR'){
-                            if(me.options.enterTag == 'p'){
-                                tmp = me.document.createElement('p');
-                                range.insertNode(tmp);
-                                range.setStart(tmp,0).setCursor();
-
-                            }else{
-                                tmp = me.document.createElement('br');
-                                range.insertNode(tmp);
-                                range.setStartBefore(tmp).setCursor();
-                            }
-                        }
-                    }
-
-                }
-                return true;
-            }
-
+            return true;
         },
-        //边界在table里不能加分隔线
-        queryCommandState : function() {
-            return domUtils.filterNodeList(this.selection.getStartElementPath(),'table') ? -1 : 0;
+        queryCommandValue : function() {
+            var node = domUtils.filterNodeList(this.selection.getStartElementPath(),'p h1 h2 h3 h4 h5 h6');
+            return node ? node.tagName.toLowerCase() : '';
         }
     };
-//    me.addListener('delkeyup',function(){
-//        var rng = this.selection.getRange();
-//        if(browser.ie && browser.version > 8){
-//            rng.txtToElmBoundary(true);
-//            if(domUtils.isStartInblock(rng)){
-//                var tmpNode = rng.startContainer;
-//                var pre = tmpNode.previousSibling;
-//                if(pre && domUtils.isTagNode(pre,'hr')){
-//                    domUtils.remove(pre);
-//                    rng.select();
-//                    return;
-//                }
-//            }
-//        }
-//        if(domUtils.isBody(rng.startContainer)){
-//            var hr = rng.startContainer.childNodes[rng.startOffset -1];
-//            if(hr && hr.nodeName == 'HR'){
-//                var next = hr.nextSibling;
-//                if(next){
-//                    rng.setStart(next,0)
-//                }else if(hr.previousSibling){
-//                    rng.setStartAtLast(hr.previousSibling)
-//                }else{
-//                    var p = this.document.createElement('p');
-//                    hr.parentNode.insertBefore(p,hr);
-//                    domUtils.fillNode(this.document,p);
-//                    rng.setStart(p,0);
-//                }
-//                domUtils.remove(hr);
-//                rng.setCursor(false,true);
-//            }
-//        }
-//    })
-    me.addListener('delkeydown',function(name,evt){
-        var rng = this.selection.getRange();
-        rng.txtToElmBoundary(true);
-        if(domUtils.isStartInblock(rng)){
-            var tmpNode = rng.startContainer;
-            var pre = tmpNode.previousSibling;
-            if(pre && domUtils.isTagNode(pre,'hr')){
-                domUtils.remove(pre);
-                rng.select();
-                domUtils.preventDefault(evt);
-                return true;
-
-            }
-        }
-
-    })
 };
 
 
-
-// plugins/cleardoc.js
+// plugins/time.js
 /**
- * 清空文档插件
+ * 插入时间和日期
  * @file
  * @since 1.2.6.1
  */
 
 /**
- * 清空文档
- * @command cleardoc
+ * 插入时间，默认格式：12:59:59
+ * @command time
  * @method execCommand
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * //editor 是编辑器实例
- * editor.execCommand('cleardoc');
+ * editor.execCommand( 'time');
  * ```
  */
 
-UE.commands['cleardoc'] = {
-    execCommand : function( cmdName) {
-        var me = this,
-            enterTag = me.options.enterTag,
-            range = me.selection.getRange();
-        if(enterTag == "br"){
-            me.body.innerHTML = "<br/>";
-            range.setStart(me.body,0).setCursor();
-        }else{
-            me.body.innerHTML = "<p>"+(ie ? "" : "<br/>")+"</p>";
-            range.setStart(me.body.firstChild,0).setCursor(false,true);
-        }
-        setTimeout(function(){
-            me.fireEvent("clearDoc");
-        },0);
+/**
+ * 插入日期，默认格式：2013-08-30
+ * @command date
+ * @method execCommand
+ * @param { String } cmd 命令字符串
+ * @example
+ * ```javascript
+ * editor.execCommand( 'date');
+ * ```
+ */
+UE.commands['time'] = UE.commands["date"] = {
+    execCommand : function(cmd, format){
+        var date = new Date;
 
+        function formatTime(date, format) {
+            var hh = ('0' + date.getHours()).slice(-2),
+                ii = ('0' + date.getMinutes()).slice(-2),
+                ss = ('0' + date.getSeconds()).slice(-2);
+            format = format || 'hh:ii:ss';
+            return format.replace(/hh/ig, hh).replace(/ii/ig, ii).replace(/ss/ig, ss);
+        }
+        function formatDate(date, format) {
+            var yyyy = ('000' + date.getFullYear()).slice(-4),
+                yy = yyyy.slice(-2),
+                mm = ('0' + (date.getMonth()+1)).slice(-2),
+                dd = ('0' + date.getDate()).slice(-2);
+            format = format || 'yyyy-mm-dd';
+            return format.replace(/yyyy/ig, yyyy).replace(/yy/ig, yy).replace(/mm/ig, mm).replace(/dd/ig, dd);
+        }
+
+        this.execCommand('insertHtml',cmd == "time" ? formatTime(date, format):formatDate(date, format) );
     }
 };
 
 
+// plugins/rowspacing.js
+/**
+ * 段前段后间距插件
+ * @file
+ * @since 1.2.6.1
+ */
+
+/**
+ * 设置段间距
+ * @command rowspacing
+ * @method execCommand
+ * @param { String } cmd 命令字符串
+ * @param { String } value 段间距的值，以px为单位
+ * @param { String } dir 间距位置，top或bottom，分别表示段前和段后
+ * @example
+ * ```javascript
+ * editor.execCommand( 'rowspacing', '10', 'top' );
+ * ```
+ */
+
+UE.plugins['rowspacing'] = function(){
+    var me = this;
+    me.setOpt({
+        'rowspacingtop':['5', '10', '15', '20', '25'],
+        'rowspacingbottom':['5', '10', '15', '20', '25']
+
+    });
+    me.commands['rowspacing'] =  {
+        execCommand : function( cmdName,value,dir ) {
+            this.execCommand('paragraph','p',{style:'margin-'+dir+':'+value + 'px'});
+            return true;
+        },
+        queryCommandValue : function(cmdName,dir) {
+            var pN = domUtils.filterNodeList(this.selection.getStartElementPath(),function(node){return domUtils.isBlockElm(node) }),
+                value;
+            //trace:1026
+            if(pN){
+                value = domUtils.getComputedStyle(pN,'margin-'+dir).replace(/[^\d]/g,'');
+                return !value ? 0 : value;
+            }
+            return 0;
+
+        }
+    };
+};
+
+
+
+
+// plugins/lineheight.js
+/**
+ * 设置行内间距
+ * @file
+ * @since 1.2.6.1
+ */
+UE.plugins['lineheight'] = function(){
+    var me = this;
+    me.setOpt({'lineheight':['1', '1.5','1.75','2', '3', '4', '5']});
+
+    /**
+     * 行距
+     * @command lineheight
+     * @method execCommand
+     * @param { String } cmdName 命令字符串
+     * @param { String } value 传入的行高值， 该值是当前字体的倍数， 例如： 1.5, 1.75
+     * @example
+     * ```javascript
+     * editor.execCommand( 'lineheight', 1.5);
+     * ```
+     */
+    /**
+     * 查询当前选区内容的行高大小
+     * @command lineheight
+     * @method queryCommandValue
+     * @param { String } cmd 命令字符串
+     * @return { String } 返回当前行高大小
+     * @example
+     * ```javascript
+     * editor.queryCommandValue( 'lineheight' );
+     * ```
+     */
+
+    me.commands['lineheight'] =  {
+        execCommand : function( cmdName,value ) {
+            this.execCommand('paragraph','p',{style:'line-height:'+ (value == "1" ? "normal" : value + 'em') });
+            return true;
+        },
+        queryCommandValue : function() {
+            var pN = domUtils.filterNodeList(this.selection.getStartElementPath(),function(node){return domUtils.isBlockElm(node)});
+            if(pN){
+                var value = domUtils.getComputedStyle(pN,'line-height');
+                return value == 'normal' ? 1 : value.replace(/[^\d.]*/ig,"");
+            }
+        }
+    };
+};
+
+
+
+
+// plugins/pagebreak.js
+/**
+ * 分页功能插件
+ * @file
+ * @since 1.2.6.1
+ */
+UE.plugins['pagebreak'] = function () {
+    var me = this,
+        notBreakTags = ['td'];
+    me.setOpt('pageBreakTag','_ueditor_page_break_tag_');
+
+    function fillNode(node){
+        if(domUtils.isEmptyBlock(node)){
+            var firstChild = node.firstChild,tmpNode;
+
+            while(firstChild && firstChild.nodeType == 1 && domUtils.isEmptyBlock(firstChild)){
+                tmpNode = firstChild;
+                firstChild = firstChild.firstChild;
+            }
+            !tmpNode && (tmpNode = node);
+            domUtils.fillNode(me.document,tmpNode);
+        }
+    }
+    //分页符样式添加
+
+    me.ready(function(){
+        utils.cssRule('pagebreak','.pagebreak{display:block;clear:both !important;cursor:default !important;width: 100% !important;margin:0;}',me.document);
+    });
+    function isHr(node){
+        return node && node.nodeType == 1 && node.tagName == 'HR' && node.className == 'pagebreak';
+    }
+    me.addInputRule(function(root){
+        root.traversal(function(node){
+            if(node.type == 'text' && node.data == me.options.pageBreakTag){
+                var hr = UE.uNode.createElement('<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-user-select: none;">');
+                node.parentNode.insertBefore(hr,node);
+                node.parentNode.removeChild(node)
+            }
+        })
+    });
+    me.addOutputRule(function(node){
+        utils.each(node.getNodesByTagName('hr'),function(n){
+            if(n.getAttr('class') == 'pagebreak'){
+                var txt = UE.uNode.createText(me.options.pageBreakTag);
+                n.parentNode.insertBefore(txt,n);
+                n.parentNode.removeChild(n);
+            }
+        })
+
+    });
+
+    /**
+     * 插入分页符
+     * @command pagebreak
+     * @method execCommand
+     * @param { String } cmd 命令字符串
+     * @remind 在表格中插入分页符会把表格切分成两部分
+     * @remind 获取编辑器内的数据时， 编辑器会把分页符转换成“_ueditor_page_break_tag_”字符串，
+     *          以便于提交数据到服务器端后处理分页。
+     * @example
+     * ```javascript
+     * editor.execCommand( 'pagebreak'); //插入一个hr标签，带有样式类名pagebreak
+     * ```
+     */
+
+    me.commands['pagebreak'] = {
+        execCommand:function () {
+            var range = me.selection.getRange(),hr = me.document.createElement('hr');
+            domUtils.setAttributes(hr,{
+                'class' : 'pagebreak',
+                noshade:"noshade",
+                size:"5"
+            });
+            domUtils.unSelectable(hr);
+            //table单独处理
+            var node = domUtils.findParentByTagName(range.startContainer, notBreakTags, true),
+
+                parents = [], pN;
+            if (node) {
+                switch (node.tagName) {
+                    case 'TD':
+                        pN = node.parentNode;
+                        if (!pN.previousSibling) {
+                            var table = domUtils.findParentByTagName(pN, 'table');
+//                            var tableWrapDiv = table.parentNode;
+//                            if(tableWrapDiv && tableWrapDiv.nodeType == 1
+//                                && tableWrapDiv.tagName == 'DIV'
+//                                && tableWrapDiv.getAttribute('dropdrag')
+//                                ){
+//                                domUtils.remove(tableWrapDiv,true);
+//                            }
+                            table.parentNode.insertBefore(hr, table);
+                            parents = domUtils.findParents(hr, true);
+
+                        } else {
+                            pN.parentNode.insertBefore(hr, pN);
+                            parents = domUtils.findParents(hr);
+
+                        }
+                        pN = parents[1];
+                        if (hr !== pN) {
+                            domUtils.breakParent(hr, pN);
+
+                        }
+                        //table要重写绑定一下拖拽
+                        me.fireEvent('afteradjusttable',me.document);
+                }
+
+            } else {
+
+                if (!range.collapsed) {
+                    range.deleteContents();
+                    var start = range.startContainer;
+                    while ( !domUtils.isBody(start) && domUtils.isBlockElm(start) && domUtils.isEmptyNode(start)) {
+                        range.setStartBefore(start).collapse(true);
+                        domUtils.remove(start);
+                        start = range.startContainer;
+                    }
+
+                }
+                range.insertNode(hr);
+
+                var pN = hr.parentNode, nextNode;
+                while (!domUtils.isBody(pN)) {
+                    domUtils.breakParent(hr, pN);
+                    nextNode = hr.nextSibling;
+                    if (nextNode && domUtils.isEmptyBlock(nextNode)) {
+                        domUtils.remove(nextNode);
+                    }
+                    pN = hr.parentNode;
+                }
+                nextNode = hr.nextSibling;
+                var pre = hr.previousSibling;
+                if(isHr(pre)){
+                    domUtils.remove(pre);
+                }else{
+                    pre && fillNode(pre);
+                }
+
+                if(!nextNode){
+                    var p = me.document.createElement('p');
+
+                    hr.parentNode.appendChild(p);
+                    domUtils.fillNode(me.document,p);
+                    range.setStart(p,0).collapse(true);
+                }else{
+                    if(isHr(nextNode)){
+                        domUtils.remove(nextNode);
+                    }else{
+                        fillNode(nextNode);
+                    }
+                    range.setEndAfter(hr).collapse(false);
+                }
+
+                range.select(true);
+
+            }
+
+        }
+    };
+};
 
 // plugins/dragdrop.js
 UE.plugins['dragdrop'] = function (){
@@ -14853,161 +15009,6 @@ UE.plugins['fiximgclick'] = (function () {
     }
 })();
 
-// plugins/video.js
-/**
- * video插件， 为UEditor提供视频插入支持
- * @file
- * @since 1.2.6.1
- */
-
-UE.plugins['video'] = function (){
-    var me =this;
-
-    /**
-     * 创建插入视频字符窜
-     * @param url 视频地址
-     * @param width 视频宽度
-     * @param height 视频高度
-     * @param align 视频对齐
-     * @param toEmbed 是否以flash代替显示
-     * @param addParagraph  是否需要添加P 标签
-     */
-    function creatInsertStr(url,width,height,id,align,classname,type){
-        var str;
-        switch (type){
-            case 'image':
-                str = '<img ' + (id ? 'id="' + id+'"' : '') + ' width="'+ width +'" height="' + height + '" _url="'+url+'" class="' + classname.replace(/\bvideo-js\b/, '') + '"'  +
-                    ' src="' + me.options.UEDITOR_HOME_URL+'themes/default/images/spacer.gif" style="background:url('+me.options.UEDITOR_HOME_URL+'themes/default/images/videologo.gif) no-repeat center center; border:1px solid gray;'+(align ? 'float:' + align + ';': '')+'" />'
-                break;
-            case 'embed':
-                str = '<embed type="application/x-shockwave-flash" class="' + classname + '" pluginspage="http://www.macromedia.com/go/getflashplayer"' +
-                    ' src="' +  utils.html(url) + '" width="' + width  + '" height="' + height  + '"'  + (align ? ' style="float:' + align + '"': '') +
-                    ' wmode="transparent" play="true" loop="false" menu="false" allowscriptaccess="never" allowfullscreen="true" >';
-                break;
-            case 'video':
-                var ext = url.substr(url.lastIndexOf('.') + 1);
-                if(ext == 'ogv') ext = 'ogg';
-                str = '<video' + (id ? ' id="' + id + '"' : '') + ' class="' + classname + ' video-js" ' + (align ? ' style="float:' + align + '"': '') +
-                    ' controls preload="none" width="' + width + '" height="' + height + '" src="' + url + '" data-setup="{}">' +
-                    '<source src="' + url + '" type="video/' + ext + '" /></video>';
-                break;
-        }
-        return str;
-    }
-
-    function switchImgAndVideo(root,img2video){
-        utils.each(root.getNodesByTagName(img2video ? 'img' : 'embed video'),function(node){
-            var className = node.getAttr('class');
-            if(className && className.indexOf('edui-faked-video') != -1){
-                var html = creatInsertStr( img2video ? node.getAttr('_url') : node.getAttr('src'),node.getAttr('width'),node.getAttr('height'),null,node.getStyle('float') || '',className,img2video ? 'embed':'image');
-                node.parentNode.replaceChild(UE.uNode.createElement(html),node);
-            }
-            if(className && className.indexOf('edui-upload-video') != -1){
-                var html = creatInsertStr( img2video ? node.getAttr('_url') : node.getAttr('src'),node.getAttr('width'),node.getAttr('height'),null,node.getStyle('float') || '',className,img2video ? 'video':'image');
-                node.parentNode.replaceChild(UE.uNode.createElement(html),node);
-            }
-        })
-    }
-
-    me.addOutputRule(function(root){
-        switchImgAndVideo(root,true)
-    });
-    me.addInputRule(function(root){
-        switchImgAndVideo(root)
-    });
-
-    /**
-     * 插入视频
-     * @command insertvideo
-     * @method execCommand
-     * @param { String } cmd 命令字符串
-     * @param { Object } videoAttr 键值对对象， 描述一个视频的所有属性
-     * @example
-     * ```javascript
-     *
-     * var videoAttr = {
-     *      //视频地址
-     *      url: 'http://www.youku.com/xxx',
-     *      //视频宽高值， 单位px
-     *      width: 200,
-     *      height: 100
-     * };
-     *
-     * //editor 是编辑器实例
-     * //向编辑器插入单个视频
-     * editor.execCommand( 'insertvideo', videoAttr );
-     * ```
-     */
-
-    /**
-     * 插入视频
-     * @command insertvideo
-     * @method execCommand
-     * @param { String } cmd 命令字符串
-     * @param { Array } videoArr 需要插入的视频的数组， 其中的每一个元素都是一个键值对对象， 描述了一个视频的所有属性
-     * @example
-     * ```javascript
-     *
-     * var videoAttr1 = {
-     *      //视频地址
-     *      url: 'http://www.youku.com/xxx',
-     *      //视频宽高值， 单位px
-     *      width: 200,
-     *      height: 100
-     * },
-     * videoAttr2 = {
-     *      //视频地址
-     *      url: 'http://www.youku.com/xxx',
-     *      //视频宽高值， 单位px
-     *      width: 200,
-     *      height: 100
-     * }
-     *
-     * //editor 是编辑器实例
-     * //该方法将会向编辑器内插入两个视频
-     * editor.execCommand( 'insertvideo', [ videoAttr1, videoAttr2 ] );
-     * ```
-     */
-
-    /**
-     * 查询当前光标所在处是否是一个视频
-     * @command insertvideo
-     * @method queryCommandState
-     * @param { String } cmd 需要查询的命令字符串
-     * @return { int } 如果当前光标所在处的元素是一个视频对象， 则返回1，否则返回0
-     * @example
-     * ```javascript
-     *
-     * //editor 是编辑器实例
-     * editor.queryCommandState( 'insertvideo' );
-     * ```
-     */
-    me.commands["insertvideo"] = {
-        execCommand: function (cmd, videoObjs, type){
-            videoObjs = utils.isArray(videoObjs)?videoObjs:[videoObjs];
-            var html = [],id = 'tmpVedio', cl;
-            for(var i=0,vi,len = videoObjs.length;i<len;i++){
-                vi = videoObjs[i];
-                cl = (type == 'upload' ? 'edui-upload-video video-js vjs-default-skin':'edui-faked-video');
-                html.push(creatInsertStr( vi.url, vi.width || 420,  vi.height || 280, id + i, null, cl, 'image'));
-            }
-            me.execCommand("inserthtml",html.join(""),true);
-            var rng = this.selection.getRange();
-            for(var i= 0,len=videoObjs.length;i<len;i++){
-                var img = this.document.getElementById('tmpVedio'+i);
-                domUtils.removeAttributes(img,'id');
-                rng.selectNode(img).select();
-                me.execCommand('imagefloat',videoObjs[i].align)
-            }
-        },
-        queryCommandState : function(){
-            var img = me.selection.getRange().getClosedNode(),
-                flag = img && (img.className == "edui-faked-video" || img.className.indexOf("edui-upload-video")!=-1);
-            return flag ? 1 : 0;
-        }
-    };
-};
-
 // plugins/basestyle.js
 /**
  * B、I、sub、super命令支持
@@ -15158,386 +15159,6 @@ UE.plugins['basestyle'] = function(){
 };
 
 
-
-// plugins/searchreplace.js
-///import core
-///commands 查找替换
-///commandsName  SearchReplace
-///commandsTitle  查询替换
-///commandsDialog  dialogs\searchreplace
-/**
- * @description 查找替换
- * @author zhanyi
- */
-
-UE.plugin.register('searchreplace',function(){
-    var me = this;
-
-    var _blockElm = {'table':1,'tbody':1,'tr':1,'ol':1,'ul':1};
-
-    function findTextInString(textContent,opt,currentIndex){
-        var str = opt.searchStr;
-        if(opt.dir == -1){
-            textContent = textContent.split('').reverse().join('');
-            str = str.split('').reverse().join('');
-            currentIndex = textContent.length - currentIndex;
-
-        }
-        var reg = new RegExp(str,'g' + (opt.casesensitive ? '' : 'i')),match;
-
-        while(match = reg.exec(textContent)){
-            if(match.index >= currentIndex){
-                return opt.dir == -1 ? textContent.length - match.index - opt.searchStr.length : match.index;
-            }
-        }
-        return  -1
-    }
-    function findTextBlockElm(node,currentIndex,opt){
-        var textContent,index,methodName = opt.all || opt.dir == 1 ? 'getNextDomNode' : 'getPreDomNode';
-        if(domUtils.isBody(node)){
-            node = node.firstChild;
-        }
-        var first = 1;
-        while(node){
-            textContent = node.nodeType == 3 ? node.nodeValue : node[browser.ie ? 'innerText' : 'textContent'];
-            index = findTextInString(textContent,opt,currentIndex );
-            first = 0;
-            if(index!=-1){
-                return {
-                    'node':node,
-                    'index':index
-                }
-            }
-            node = domUtils[methodName](node);
-            while(node && _blockElm[node.nodeName.toLowerCase()]){
-                node = domUtils[methodName](node,true);
-            }
-            if(node){
-                currentIndex = opt.dir == -1 ? (node.nodeType == 3 ? node.nodeValue : node[browser.ie ? 'innerText' : 'textContent']).length : 0;
-            }
-
-        }
-    }
-    function findNTextInBlockElm(node,index,str){
-        var currentIndex = 0,
-            currentNode = node.firstChild,
-            currentNodeLength = 0,
-            result;
-        while(currentNode){
-            if(currentNode.nodeType == 3){
-                currentNodeLength = currentNode.nodeValue.replace(/(^[\t\r\n]+)|([\t\r\n]+$)/,'').length;
-                currentIndex += currentNodeLength;
-                if(currentIndex >= index){
-                    return {
-                        'node':currentNode,
-                        'index': currentNodeLength - (currentIndex - index)
-                    }
-                }
-            }else if(!dtd.$empty[currentNode.tagName]){
-                currentNodeLength = currentNode[browser.ie ? 'innerText' : 'textContent'].replace(/(^[\t\r\n]+)|([\t\r\n]+$)/,'').length
-                currentIndex += currentNodeLength;
-                if(currentIndex >= index){
-                    result = findNTextInBlockElm(currentNode,currentNodeLength - (currentIndex - index),str);
-                    if(result){
-                        return result;
-                    }
-                }
-            }
-            currentNode = domUtils.getNextDomNode(currentNode);
-
-        }
-    }
-
-    function searchReplace(me,opt){
-
-        var rng = me.selection.getRange(),
-            startBlockNode,
-            searchStr = opt.searchStr,
-            span = me.document.createElement('span');
-        span.innerHTML = '$$ueditor_searchreplace_key$$';
-
-        rng.shrinkBoundary(true);
-
-        //判断是不是第一次选中
-        if(!rng.collapsed){
-            rng.select();
-            var rngText = me.selection.getText();
-            if(new RegExp('^' + opt.searchStr + '$',(opt.casesensitive ? '' : 'i')).test(rngText)){
-                if(opt.replaceStr != undefined){
-                    replaceText(rng,opt.replaceStr);
-                    rng.select();
-                    return true;
-                }else{
-                    rng.collapse(opt.dir == -1)
-                }
-
-            }
-        }
-
-
-        rng.insertNode(span);
-        rng.enlargeToBlockElm(true);
-        startBlockNode = rng.startContainer;
-        var currentIndex = startBlockNode[browser.ie ? 'innerText' : 'textContent'].indexOf('$$ueditor_searchreplace_key$$');
-        rng.setStartBefore(span);
-        domUtils.remove(span);
-        var result = findTextBlockElm(startBlockNode,currentIndex,opt);
-        if(result){
-            var rngStart = findNTextInBlockElm(result.node,result.index,searchStr);
-            var rngEnd = findNTextInBlockElm(result.node,result.index + searchStr.length,searchStr);
-            rng.setStart(rngStart.node,rngStart.index).setEnd(rngEnd.node,rngEnd.index);
-
-            if(opt.replaceStr !== undefined){
-                replaceText(rng,opt.replaceStr)
-            }
-            rng.select();
-            return true;
-        }else{
-            rng.setCursor()
-        }
-
-    }
-    function replaceText(rng,str){
-
-        str = me.document.createTextNode(str);
-        rng.deleteContents().insertNode(str);
-
-    }
-    return {
-        commands:{
-            'searchreplace':{
-                execCommand:function(cmdName,opt){
-                    utils.extend(opt,{
-                        all : false,
-                        casesensitive : false,
-                        dir : 1
-                    },true);
-                    var num = 0;
-                    if(opt.all){
-
-                        var rng = me.selection.getRange(),
-                            first = me.body.firstChild;
-                        if(first && first.nodeType == 1){
-                            rng.setStart(first,0);
-                            rng.shrinkBoundary(true);
-                        }else if(first.nodeType == 3){
-                            rng.setStartBefore(first)
-                        }
-                        rng.collapse(true).select(true);
-                        if(opt.replaceStr !== undefined){
-                            me.fireEvent('saveScene');
-                        }
-                        while(searchReplace(this,opt)){
-                            num++;
-                        }
-                        if(num){
-                            me.fireEvent('saveScene');
-                        }
-                    }else{
-                        if(opt.replaceStr !== undefined){
-                            me.fireEvent('saveScene');
-                        }
-                        if(searchReplace(this,opt)){
-                            num++
-                        }
-                        if(num){
-                            me.fireEvent('saveScene');
-                        }
-
-                    }
-
-                    return num;
-                },
-                notNeedUndo:1
-            }
-        }
-    }
-});
-
-// plugins/snapscreen.js
-/**
- * 截屏插件，为UEditor提供插入支持
- * @file
- * @since 1.4.2
- */
-UE.plugin.register('snapscreen', function (){
-
-    var me = this;
-    var snapplugin;
-
-    function getLocation(url){
-        var search,
-            a = document.createElement('a'),
-            params = utils.serializeParam(me.queryCommandValue('serverparam')) || '';
-
-        a.href = url;
-        if (browser.ie) {
-            a.href = a.href;
-        }
-
-
-        search = a.search;
-        if (params) {
-            search = search + (search.indexOf('?') == -1 ? '?':'&')+ params;
-            search = search.replace(/[&]+/ig, '&');
-        }
-        return {
-            'port': a.port,
-            'hostname': a.hostname,
-            'path': a.pathname + search ||  + a.hash
-        }
-    }
-
-    return {
-        commands:{
-            /**
-             * 字体背景颜色
-             * @command snapscreen
-             * @method execCommand
-             * @param { String } cmd 命令字符串
-             * @example
-             * ```javascript
-             * editor.execCommand('snapscreen');
-             * ```
-             */
-            'snapscreen':{
-                execCommand:function (cmd) {
-                    var url, local, res;
-                    var lang = me.getLang("snapScreen_plugin");
-
-                    if(!snapplugin){
-                        var container = me.container;
-                        var doc = me.container.ownerDocument || me.container.document;
-                        snapplugin = doc.createElement("object");
-                        try{snapplugin.type = "application/x-pluginbaidusnap";}catch(e){
-                            return;
-                        }
-                        snapplugin.style.cssText = "position:absolute;left:-9999px;width:0;height:0;";
-                        snapplugin.setAttribute("width","0");
-                        snapplugin.setAttribute("height","0");
-                        container.appendChild(snapplugin);
-                    }
-
-                    function onSuccess(rs){
-                        try{
-                            rs = eval("("+ rs +")");
-                            if(rs.state == 'SUCCESS'){
-                                var opt = me.options;
-                                me.execCommand('insertimage', {
-                                    src: opt.snapscreenUrlPrefix + rs.url,
-                                    _src: opt.snapscreenUrlPrefix + rs.url,
-                                    alt: rs.title || '',
-                                    floatStyle: opt.snapscreenImgAlign
-                                });
-                            } else {
-                                alert(rs.state);
-                            }
-                        }catch(e){
-                            alert(lang.callBackErrorMsg);
-                        }
-                    }
-                    url = me.getActionUrl(me.getOpt('snapscreenActionName'));
-                    local = getLocation(url);
-                    setTimeout(function () {
-                        try{
-                            res =snapplugin.saveSnapshot(local.hostname, local.path, local.port);
-                        }catch(e){
-                            me.ui._dialogs['snapscreenDialog'].open();
-                            return;
-                        }
-
-                        onSuccess(res);
-                    }, 50);
-                },
-                queryCommandState: function(){
-                    return (navigator.userAgent.indexOf("Windows",0) != -1) ? 0:-1;
-                }
-            }
-        }
-    }
-});
-
-
-// plugins/music.js
-/**
- * 插入音乐命令
- * @file
- */
-UE.plugin.register('music', function (){
-    var me = this;
-    function creatInsertStr(url,width,height,align,cssfloat,toEmbed){
-        return  !toEmbed ?
-                '<img ' +
-                    (align && !cssfloat? 'align="' + align + '"' : '') +
-                    (cssfloat ? 'style="float:' + cssfloat + '"' : '') +
-                    ' width="'+ width +'" height="' + height + '" _url="'+url+'" class="edui-faked-music"' +
-                    ' src="'+me.options.langPath+me.options.lang+'/images/music.png" />'
-            :
-            '<embed type="application/x-shockwave-flash" class="edui-faked-music" pluginspage="http://www.macromedia.com/go/getflashplayer"' +
-                ' src="' + url + '" width="' + width  + '" height="' + height  + '" '+ (align && !cssfloat? 'align="' + align + '"' : '') +
-                (cssfloat ? 'style="float:' + cssfloat + '"' : '') +
-                ' wmode="transparent" play="true" loop="false" menu="false" allowscriptaccess="never" allowfullscreen="true" >';
-    }
-    return {
-        outputRule: function(root){
-            utils.each(root.getNodesByTagName('img'),function(node){
-                var html;
-                if(node.getAttr('class') == 'edui-faked-music'){
-                    var cssfloat = node.getStyle('float');
-                    var align = node.getAttr('align');
-                    html =  creatInsertStr(node.getAttr("_url"), node.getAttr('width'), node.getAttr('height'), align, cssfloat, true);
-                    var embed = UE.uNode.createElement(html);
-                    node.parentNode.replaceChild(embed,node);
-                }
-            })
-        },
-        inputRule:function(root){
-            utils.each(root.getNodesByTagName('embed'),function(node){
-                if(node.getAttr('class') == 'edui-faked-music'){
-                    var cssfloat = node.getStyle('float');
-                    var align = node.getAttr('align');
-                    html =  creatInsertStr(node.getAttr("src"), node.getAttr('width'), node.getAttr('height'), align, cssfloat,false);
-                    var img = UE.uNode.createElement(html);
-                    node.parentNode.replaceChild(img,node);
-                }
-            })
-
-        },
-        commands:{
-            /**
-             * 插入音乐
-             * @command music
-             * @method execCommand
-             * @param { Object } musicOptions 插入音乐的参数项， 支持的key有： url=>音乐地址；
-             * width=>音乐容器宽度；height=>音乐容器高度；align=>音乐文件的对齐方式， 可选值有: left, center, right, none
-             * @example
-             * ```javascript
-             * //editor是编辑器实例
-             * //在编辑器里插入一个“植物大战僵尸”的APP
-             * editor.execCommand( 'music' , {
-             *     width: 400,
-             *     height: 95,
-             *     align: "center",
-             *     url: "音乐地址"
-             * } );
-             * ```
-             */
-            'music':{
-                execCommand:function (cmd, musicObj) {
-                    var me = this,
-                        str = creatInsertStr(musicObj.url, musicObj.width || 400, musicObj.height || 95, "none", false);
-                    me.execCommand("inserthtml",str);
-                },
-                queryCommandState:function () {
-                    var me = this,
-                        img = me.selection.getRange().getClosedNode(),
-                        flag = img && (img.className == "edui-faked-music");
-                    return flag ? 1 : 0;
-                }
-            }
-        }
-    }
-});
 
 // plugins/simpleupload.js
 /**
@@ -15821,78 +15442,6 @@ UE.plugin.register('serverparam', function (){
         }
     }
 });
-
-
-// plugins/insertfile.js
-/**
- * 插入附件
- */
-UE.plugin.register('insertfile', function (){
-
-    var me = this;
-
-    function getFileIcon(url){
-        var ext = url.substr(url.lastIndexOf('.') + 1).toLowerCase(),
-            maps = {
-                "rar":"icon_rar.gif",
-                "zip":"icon_rar.gif",
-                "tar":"icon_rar.gif",
-                "gz":"icon_rar.gif",
-                "bz2":"icon_rar.gif",
-                "doc":"icon_doc.gif",
-                "docx":"icon_doc.gif",
-                "pdf":"icon_pdf.gif",
-                "mp3":"icon_mp3.gif",
-                "xls":"icon_xls.gif",
-                "chm":"icon_chm.gif",
-                "ppt":"icon_ppt.gif",
-                "pptx":"icon_ppt.gif",
-                "avi":"icon_mv.gif",
-                "rmvb":"icon_mv.gif",
-                "wmv":"icon_mv.gif",
-                "flv":"icon_mv.gif",
-                "swf":"icon_mv.gif",
-                "rm":"icon_mv.gif",
-                "exe":"icon_exe.gif",
-                "psd":"icon_psd.gif",
-                "txt":"icon_txt.gif",
-                "jpg":"icon_jpg.gif",
-                "png":"icon_jpg.gif",
-                "jpeg":"icon_jpg.gif",
-                "gif":"icon_jpg.gif",
-                "ico":"icon_jpg.gif",
-                "bmp":"icon_jpg.gif"
-            };
-        return maps[ext] ? maps[ext]:maps['txt'];
-    }
-
-    return {
-        commands:{
-            'insertfile': {
-                execCommand: function (command, filelist){
-                    filelist = utils.isArray(filelist) ? filelist : [filelist];
-
-                    var i, item, icon, title,
-                        html = '',
-                        URL = me.getOpt('UEDITOR_HOME_URL'),
-                        iconDir = URL + (URL.substr(URL.length - 1) == '/' ? '':'/') + 'dialogs/attachment/fileTypeImages/';
-                    for (i = 0; i < filelist.length; i++) {
-                        item = filelist[i];
-                        icon = iconDir + getFileIcon(item.url);
-                        title = item.title || item.url.substr(item.url.lastIndexOf('/') + 1);
-                        html += '<p style="line-height: 16px;">' +
-                            '<img style="vertical-align: middle; margin-right: 2px;" src="'+ icon + '" _src="' + icon + '" />' +
-                            '<a style="font-size:12px; color:#0066cc;" href="' + item.url +'" title="' + title + '">' + title + '</a>' +
-                            '</p>';
-                    }
-                    me.execCommand('insertHtml', html);
-                }
-            }
-        }
-    }
-});
-
-
 
 
 // ui/ui.js
