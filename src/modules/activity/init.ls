@@ -24,6 +24,7 @@ module.exports = {
     add-personal-activity: (req, res) ->
         team-info = {
             name: req.param 'name'
+            info: req.param 'info'
             create_time: (moment new Date()).format 'YYYY-MM-DD HH:mm'
             activity_id: 0
         }
