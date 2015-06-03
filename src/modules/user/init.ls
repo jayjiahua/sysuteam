@@ -37,8 +37,6 @@ module.exports = {
     # 登陆 成功后设置username，    返回值 0//成功 1//失败
     login: (req, res, username, password) ->
         user.login username, password, (err, result)->
-            console.log password
-            console.log result[0].password
             if result.length is not 0 and check-password(password,result[0].password)
                 res.cookie 'user', result[0], { maxAge: 900000}
                 console.log res.cookie!

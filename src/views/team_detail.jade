@@ -21,13 +21,7 @@ block content
     .progress
       .progress-bar(style="width: 80%;")
     hr
-    pre#team_detail
-        我们是王青老师旗下的第四分队，主要是做web开发。
-        我们做过两千个项目，代码量超过10行。有着丰富的经验，熟练地掌握各项前端后端平面动画吹牛技术。
-        我们需要一个产品经理，平时可以瞎BB，惹我们生气然后被我们吊起来抽打解闷。
-        男生，自带人身保险，打不还手骂不还口，有意者请参加我们队伍。
-        
-        报名方式：XXXXXXXXX
+    pre#team_detail !{team.info}
       
     hr
     p 他们已经参加...
@@ -40,7 +34,6 @@ block content
 
   block extrajs
     script(type="text/javascript", src="/dist/js/bootstrap-datetimepicker.js", charset="UTF-8")
-    script(type="text/javascript", src="/dist/js/bootstrap-datetimepicker.fr.js", charset="UTF-8")
     script(type="text/javascript")
       $('#datetimepicker').datetimepicker();
     script(type="text/javascript") var ue = UE.getEditor('editor');
