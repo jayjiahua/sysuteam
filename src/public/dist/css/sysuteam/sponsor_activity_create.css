@@ -1,0 +1,33 @@
+.user_portrait {
+	margin-left: calc(50% - 70px);
+	box-shadow: 2px 2px 2px #888888;
+}
+
+.input-group-addon {
+	background-color: #1abc9c;
+	border: 2px solid #1abc9c;
+}
+@media(min-width:767px) {
+	.sac_title_time {
+		margin-bottom: 60px;
+	}
+	.sac_title_time #composeworktitle {
+		float: left;
+	}
+
+	.sac_title_time #composeworktime {
+		float: right;
+	}
+
+}
+@media(max-width:767px) {
+	.sac_title_time #composeworktitle {
+		margin-bottom: 10px;
+	}
+
+	.sac_title_time #composeworktime {
+		margin-bottom: 10px;
+	}
+
+}
+

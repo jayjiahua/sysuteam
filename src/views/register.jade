@@ -1,63 +1,37 @@
-doctype html
-html
-  head
-    meta(charset="utf-8")
-    title 中大TEAM-register
-    // Loading Bootstrap
-    link(href="dist/css/bootstrap.css", rel="stylesheet")
-    // Loading Flat UI
-    link(href="dist/css/flat-ui.min.css", rel="stylesheet")
-    link(href="dist/css/sysuteam.css", rel="stylesheet")
-  body
-    nav.navbar.navbar-default(role="navigation")
-      .navbar-header
-        button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar-collapse-01")
-          span.sr-only Toggle navigation
-        a.navbar-brand(href="#") 中大TEAMTEAM
-      #navbar-collapse-01.collapse.navbar-collapse
-        ul.nav.navbar-nav.navbar-right
-          li
-            p.navbar-text
-              a.navbar-link(href="#") 登陆
-        // 搜索
-        form.navbar-form.navbar-right(action="#", role="search")
-          .form-group
-            .input-group
-              input#navbarInput-01.form-control(type="search", placeholder="Search")
-              span.input-group-btn
-                button.btn(type="submit")
-                  span.fui-search
-      // /.navbar-collapse
-    // /navbar
-    #mycontainer
-      form.centerdiv
-        .input-group
-          span#basic-addon1.input-group-addon 邮箱
-          input.form-control(type="text", placeholder="email", aria-describedby="basic-addon1")
-        br
-        .input-group
-          span#basic-addon1.input-group-addon 用户
-          input.form-control(type="text", placeholder="Username", aria-describedby="basic-addon1")
-        br
-        .input-group
-          span#basic-addon1.input-group-addon 密码
-          input.form-control.password(type="text", placeholder="password", aria-describedby="basic-addon1")
-        br
-        .input-group
-          span#basic-addon1.input-group-addon 确认
-          input.form-control.password(type="text", placeholder="password comfirm", aria-describedby="basic-addon1")
-        br
-        // 技能标签
-        // Primary tags input
-        span(style="font-size:15px; color:#1ABC9C;") 请输入你的技能
-        .tagsinput-primary
-          input.tagsinput(type="text", name="tagsinput", data-role="tagsinput", value="设计, 编程, 排球")
-        button.centerdiv_bt.btn.btn-embossed.btn-primary.btn-wide
-          | 注册
-    // footer
-    footer#footer
-      p.copyright.text-muted.small Copyright &#169; NO.4 2015. All Rights Reserved
-    // js
-    script(src="dist/js/vendor/jquery.min.js")
-    script(src="dist/js/vendor/video.js")
-    script(src="dist/js/flat-ui.min.js")
+extend layout
+
+block append head
+  link(href="/dist/css/sysuteam/register.css", rel="stylesheet")
+
+block title
+  title 中大TEAM-注册
+ 
+block content
+  #mycontainer
+    form.centerdiv
+      .input-group
+        span#basic-addon1.input-group-addon 邮箱
+        input.form-control(type="text", placeholder="email", id="email", aria-describedby="basic-addon1")
+      br
+      .input-group
+        span#basic-addon1.input-group-addon 用户
+        input.form-control(type="text", placeholder="Username", id="username", aria-describedby="basic-addon1")
+      br
+      .input-group
+        span#basic-addon1.input-group-addon 密码
+        input.form-control.password(type="password", placeholder="password", id="password", aria-describedby="basic-addon1")
+      br
+      .input-group
+        span#basic-addon1.input-group-addon 确认
+        input.form-control.password(type="password", placeholder="password comfirm", aria-describedby="basic-addon1")
+      br
+      // 技能标签
+      // Primary tags input
+      span(style="font-size:15px; color:#1ABC9C;") 请输入你的技能
+      .tagsinput-primary
+        input.tagsinput(type="text", name="tagsinput", id="skill", data-role="tagsinput", value="设计, 编程, 排球")
+      button(type="button").centerdiv_bt.btn.btn-embossed.btn-primary.btn-wide#register_btn
+        | 注册
+
+  block extrajs
+    script(src="/dist/js/register.js")

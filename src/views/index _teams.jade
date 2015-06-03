@@ -1,0 +1,203 @@
+extend layout
+
+block append head
+  link(href="/dist/css/sysuteam/index_teams.css", rel="stylesheet")
+
+block title
+  title 中大TEAM-所有队伍
+ 
+block content
+  #mycontainer
+    // 幻灯片
+    #myCarousel.carousel.slide.sysuteamslide
+      ol.carousel-indicators
+        li.active(data-target="#myCarousel", data-slide-to="0")
+        li(data-target="#myCarousel", data-slide-to="1")
+        li(data-target="#myCarousel", data-slide-to="2")
+      .bs-docs-example
+        .carousel-inner
+          .active.item
+            img#silde_img(src="/img/myteam.jpg")
+            .carousel-caption.slidetext
+              h4 第四小组
+              p 来一炮？
+          .item
+            img#silde_img(src="/img/team0.jpg")
+            .carousel-caption.slidetext
+              h4 OCOT设计团队
+              p 只招妹子。可以不会设计，一定要有颜值。
+          .item
+            img#silde_img(src="/img/team1.jpg")
+            .carousel-caption.slidetext
+              h4 撒旦骑行队
+              p 骑自行车走中国
+        // Carousel nav
+        a.carousel-control.left(href="#myCarousel", data-slide="prev") &#8249;
+        a.carousel-control.right(href="#myCarousel", data-slide="next") &#8250;
+    // 筛选
+    .category
+      form(role="form")
+        .form-group
+          label.checkbox.primary(for="checkbox2c")
+            input#checkbox2c(type="checkbox", data-toggle="radio", checked="checked", value="")
+            | 编程
+          label.checkbox.primary(for="checkbox3c")
+            input#checkbox3c(type="checkbox", data-toggle="radio", checked="checked", value="")
+            | 设计
+          label.checkbox.primary(for="checkbox4c")
+            input#checkbox4c(type="checkbox", data-toggle="radio", checked="checked", value="")
+            | 文学
+          label.checkbox.primary(for="checkbox5c")
+            input#checkbox5c(type="checkbox", data-toggle="radio", checked="checked", value="")
+            | 营销
+          label.checkbox.primary(for="checkbox6c")
+            input#checkbox6c(type="checkbox", data-toggle="radio", checked="checked", value="")
+            | 公益
+          label.checkbox.primary(for="checkbox7c")
+            input#checkbox7c(type="checkbox", data-toggle="radio", checked="checked", value="")
+            | 创业
+          label.checkbox.primary(for="checkbox8c")
+            input#checkbox8c(type="checkbox", data-toggle="radio", checked="checked", value="")
+            | &#20854;&#20182;
+          button.btn.btn-sm.btn-primary.checkboxbt(type="submit") &#31579;&#36873;
+    // 活动
+    .row.activities_row
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+    .row.activities_row
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+    .row.activities_row
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+      .col-sm-6.col-md-3
+        .thumbnail
+          img(data-src="/holder.js/100%x200", alt="...")
+          .caption
+            h6 队伍名称
+            span 队长：
+            span 性质
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="#") 详情
+              a.btn.btn-danger(role="button", href="#") 加入
+    
+    // 页码
+    .pagination.pagination-success.rightdiv
+      a.btn.btn-success.previous(href="#") Previous
+      ul
+        li
+          a(href="#") 1
+        li
+          a(href="#") 2
+        li
+          a(href="#") 3
+      a.btn.btn-success.next(href="#") Next
+  block extrajs
+    script(type="text/javascript")
+      $(document).ready(function(){
+      $(':checkbox').radiocheck();
+      });
