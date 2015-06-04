@@ -9,7 +9,7 @@ html
     // Loading Flat UI
     link(href="/dist/css/flat-ui.min.css", rel="stylesheet") 
     link(href="/dist/css/sysuteam/general.css", rel="stylesheet")
-    script(src="/dist/js/vendor/jquery.min.js")
+    script(src="/javascript/jquery.min.js")
     script(src="/dist/js/flat-ui.min.js")
   body
     //导航栏
@@ -18,15 +18,20 @@ html
         button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navbar-collapse-01")
           span.sr-only Toggle navigation
         a.navbar-brand(href="/") 中大TEAM
+        a.navbar-brand(href="/createteam") 创建活动
       #navbar-collapse-01.collapse.navbar-collapse
         ul.nav.navbar-nav.navbar-right
           li
             if !user
               p.navbar-text
                 a.navbar-link(href="/login") 登陆
+              p.navbar-text
+                a.navbar-link(href="/register") 注册
             else
               p.navbar-text
                 a.navbar-link(href="/login") #{user.username}
+              p.navbar-text
+                a.navbar-link(href="/logout") 退出
         // 搜索
         form.navbar-form.navbar-right(action="#", role="search")
           .form-group
@@ -41,6 +46,6 @@ html
     footer#footer
       p.copyright.text-muted.small Copyright &#169; NO.4 2015. All Rights Reserved
     // js
-    script(src="/dist/js/vendor/video.js")
+    //script(src="/dist/js/vendor/video.js")
     block extrajs
 

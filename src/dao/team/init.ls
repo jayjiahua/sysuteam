@@ -12,11 +12,12 @@ module.exports = {
             callback err, result
 
     get-team-by-team-id: (team-id, callback) ->
-        sql = "SELECT * FROM ?? WHERE id = ?"
-        inserts = ['Teamer', conn.escape(team-id)]
+        sql = "SELECT * FROM ?? t,?? u  WHERE t.id = ? and t.id = u.team_id"
+        inserts = ['Teamer', 'Team_user_role', conn.escape(team-id)]
         sql = conn.format sql, inserts
         console.log "SQL语句："+sql
         conn.query sql, (err, result, fields) ->
+            console.log result
             callback err, result    
 
 
@@ -77,8 +78,7 @@ module.exports = {
         conn.query sql, (err, result) ->
             callback err, result
 
-    add-teammate: (team-id, user-id, callback) ->
-        info = {team_id: team-id, user_id: user-id, role: 2}
+    add-teammate: (info, callback) ->
         sql = "INSERT INTO ?? SET ?"
         inserts = ['Team_user_role', info]
         sql = conn.format sql, inserts

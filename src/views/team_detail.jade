@@ -12,28 +12,27 @@ block content
     img#team_img(src="/img/myteam.jpg")
 
     #team_info
-      h3 #{team.name}
+      h3 #{team[0].name}
         //span.label.label-danger(style="font-size:15px;") web
       p
       p
-        a.btn.btn-primary(role="button", href="#") 加入
+        if hasjoined == false
+          a#join.btn.btn-primary(role="button", href="/join/#{team[0].id}") 加入
+        else
+          p 你已经在该队伍中
 
     .progress
       .progress-bar(style="width: 80%;")
     hr
-    pre#team_detail !{team.info}
+    pre#team_detail !{team[0].info}
       
     hr
     p 他们已经参加...
     #hasjoined
-      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
-      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
-      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
-      img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
-
+      each people in team
+        img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
 
   block extrajs
     script(type="text/javascript", src="/dist/js/bootstrap-datetimepicker.js", charset="UTF-8")
-    script(type="text/javascript")
-      $('#datetimepicker').datetimepicker();
+    script(type="text/javascript", src="/dist/js/join.js")
     script(type="text/javascript") var ue = UE.getEditor('editor');
