@@ -44,8 +44,17 @@ module.exports = (user, team, activity)->
   router.get '/team/:teamid', is-authenticated, (req, res)!->
     team.get-team-by-id req, res, parse-int req.params.teamid
     #console.log '查看队伍,teamid:', req.params.teamid
-    
 
+  router.get '/join/:teamid', is-authenticated, (req, res)!->
+    info = {
+      team_id: parse-int req.params.teamid
+      user_id: req.cookies.user.id
+      role: 2
+    }
+    console.log info
+    team.add-teammate req, res, info
+    
+    
   router.get '/login', (req, res)!->
     if req.cookies.user then res.redirect '/' else res.render 'login'
 
