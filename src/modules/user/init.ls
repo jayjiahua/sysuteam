@@ -31,6 +31,7 @@ module.exports = {
             if err
                 res.send '1'
             else
+                user-infor.id = result.insertId
                 res.cookie 'user', user-infor, { maxAge: 900000}
                 res.send '0'
 
