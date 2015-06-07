@@ -1,0 +1,30 @@
+mixin activity_post
+  .post.row
+    img.center-block(src='./public/images/slide0.jpg')
+
+mixin activity_info
+  .row
+    .col-md-12.col-sm-12
+      h3 
+        span.title activity_title
+        span.btn.btn-sm.btn-danger tag-a
+        span.btn.btn-sm.btn-success tag-b
+        span.btn.btn-sm.btn-info tag-c
+  .row
+    .col-md-2.col-sm-2
+      button.btn.btn-primary(type='button') new team
+  .row
+    .col-md-12.col-sm-12
+      p description.....
+
+mixin team_info
+  .row
+    .col-sm-6.col-md-4
+      .thumbnail
+        img(src='', alt='team name')
+        .caption
+          h3 Team_name
+          p describe
+          p
+            button.btn.btn-info Detail
+            button.btn.btn-primary Join

@@ -37,7 +37,7 @@ gulp.task('public', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(['./jade/**/*.jade'], ['jade']);
+  gulp.watch('./jade/**/*.jade', ['jade']);
   gulp.watch('./sass/*.scss', ['sass']);
   gulp.watch('./ls/*.ls', ['livescript']);
 });
