@@ -16,6 +16,25 @@ mixin datepicker
       .input-group-addon date
       input.form-control#datetimepicker(type='text' value='2015-06-07 14:00' data-date-format="yyyy-mm-dd hh:ii")
 
+mixin team_limit
+  .col-md-4.col-sm-4
+    .input-group
+      .input-group-addon team-limit
+      input.form-control(type='text')
+
+mixin people_limit
+  .col-md-3.col-sm-3
+    .input-group
+      .input-group-addon team-people-limit
+      input.form-control(type='text')
+
+mixin contact
+  .col-md-6.col-sm-6
+    .input-group
+      .input-group-addon contact
+      input.form-control(type='text')
+  .col-md-1.col-sm-1
+
 mixin tag
   .col-md-offset-1.col-sm-offset-1.col-md-4.col-sm-4
     .tagsinput-primary
@@ -28,18 +47,6 @@ mixin tag
         span.tag.label.label-info 排球
           span(data-role='remove')
         input(type='text' placeholder='new tag' style='width: 3em !important;')
-
-mixin team_limit
-  .col-md-4.col-sm-4
-    .input-group
-      .input-group-addon team-limit
-      input.form-control(type='text')
-
-mixin people_limit
-  .col-md-3.col-sm-3
-    .input-group
-      .input-group-addon team-people-limit
-      input.form-control(type='text')
 
 mixin ueditor
   script#editor.row(name='content', type='text/plain') enter your activity info

@@ -44,6 +44,18 @@ mixin team_list
             button.btn.btn-info Detail
             button.btn.btn-primary Join
 
+mixin new_member
+  .row
+    h3 wanted to join
+  .row
+    .col-sm-3.col-md-3
+      a
+        img.img-circle(src='', alt='140X140 new member?')
+    .col-sm-2.col-md-1
+      button.btn.btn-info(type='submit') allow
+    .col-sm-2.col-md-1
+      button.btn.btn-danger(type='submit') refuse
+
 mixin team_member
   .row
     h3 members

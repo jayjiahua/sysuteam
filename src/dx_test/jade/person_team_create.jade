@@ -1,0 +1,26 @@
+extends ./layout/default.jade
+include ./mixins/create.jade
+
+block title
+  title 中大TEAM-创建队伍
+
+block append style
+  link(rel='stylesheet', href='./css/create.css')
+
+block content
+  .container
+    h3.text-center create team
+    .row
+      +title
+      +type
+      +datepicker
+    .row
+      +contact
+      +tag
+    +ueditor
+    .row
+      .col-md-3.col-sm-3
+        button.submit.btn.btn-primary(type='submit') submit
+
+block append scripts
+  script(type='text/javascript', src='./js/create_team.js')

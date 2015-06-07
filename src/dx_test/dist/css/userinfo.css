@@ -1,0 +1,13 @@
+.container {
+  margin-bottom: 48px; }
+
+.row {
+  margin: 0; }
+
+.row + .row {
+  margin: 48px 0; }
+
+.pagination {
+  float: right; }
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInVzZXJpbmZvLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsVUFBVSxDQUFDO0VBQ1QsYUFBYSxFQUFFLElBQUssR0FEVjs7QUFJWixJQUFJLENBQUM7RUFDSCxNQUFNLEVBQUUsQ0FBRSxHQUROOztBQUlDLElBQUksR0FBRyxJQUFJLENBQU47RUFDVixNQUFNLEVBQUUsTUFBTyxHQURKOztBQUliLFdBQVcsQ0FBQztFQUNWLEtBQUssRUFBRSxLQUFNLEdBREYiLCJmaWxlIjoidXNlcmluZm8uY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNvbnRhaW5lciB7XG4gIG1hcmdpbi1ib3R0b206IDQ4cHg7XG59XG5cbi5yb3cge1xuICBtYXJnaW46IDA7XG59XG5cbi5yb3cgKyAucm93IHtcbiAgbWFyZ2luOiA0OHB4IDA7XG59XG5cbi5wYWdpbmF0aW9uIHtcbiAgZmxvYXQ6IHJpZ2h0O1xufSJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ== */
