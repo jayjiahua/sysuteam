@@ -1,0 +1,15 @@
+.row {
+  margin: 0;
+}
+
+.row + .row {
+  margin: 48px 0;
+}
+
+.submit {
+  margin-bottom: 48px;
+}
+
+#editor {
+  padding: 0 15px;
+}
