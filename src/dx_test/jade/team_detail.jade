@@ -2,7 +2,7 @@ extends ./layout/default.jade
 include ./mixins/detail.jade
 
 block title
-  title 中大TEAM-活动详情
+  title 中大TEAM-队伍详情
 
 block append style
   link(rel='stylesheet', href='./css/detail.css')
@@ -10,11 +10,11 @@ block append style
 block content
   .container
     +activity_post
-    +activity_info
-    +team_list
+    +team_info
+    +team_member
     hr
     +comments
     +ueditor
 
 block append scripts
-  script(type='text/javascript', src='./js/activity_detail.js')
+  script(type='text/javascript', src='./js/index.js')
