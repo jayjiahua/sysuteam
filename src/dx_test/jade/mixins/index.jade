@@ -1,0 +1,156 @@
+mixin carousel_index
+  #index-slide.carousel.slide(data-ride='carousel')
+    ol.carousel-indicators
+      li.active(data-target='#index-slide', data-slide-to='0')
+      li(data-target='#index-slide', data-slide-to='1')
+      li(data-target='#index-slide', data-slide-to='2')
+    .carousel-inner(role='list-box')
+      .item.active
+        img(src='./public/images/slide0.jpg', alt='voice')
+        .carousel-caption
+          .slide-info
+            h3 维纳斯歌手大赛
+            p 不看一场维纳斯枉为中大人
+      .item
+        img(src='./public/images/slide1.jpg', alt='a')
+        .carousel-caption
+          .slide-info
+            h3 中大院系篮球赛
+            p 篮球赛！有妹子！
+      .item
+        img(src='./public/images/slide2.jpg', alt='b')
+        .carousel-caption
+          .slide-info
+            h3 文艺写作大赛
+            p 第一名奖励吴嘉华一个
+    a.left.carousel-control(href='#index-slide', role='button', data-slide='prev')
+      span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+      span.sr-only previous
+    a.right.carousel-control(href='#index-slide', role='button', data-slide='next')
+      span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+      span.sr-only next
+
+mixin carousel_team
+  #team-slide.carousel.slide(data-ride='carousel')
+    ol.carousel-indicators
+      li.active(data-target='#team-slide', data-slide-to='0')
+      li(data-target='#team-slide', data-slide-to='1')
+      li(data-target='#team-slide', data-slide-to='2')
+    .carousel-inner(role='list-box')
+      .item.active
+        img(src='./public/images/team0.jpg', alt='voice')
+        .carousel-caption
+          .slide-info
+            h3 team0
+            p 000000
+      .item
+        img(src='./public/images/team1.jpg', alt='a')
+        .carousel-caption
+          .slide-info
+            h3 team1
+            p 111111
+      .item
+        img(src='./public/images/team2.jpg', alt='b')
+        .carousel-caption
+          .slide-info
+            h3 team2
+            p 222222
+    a.left.carousel-control(href='#team-slide', role='button', data-slide='prev')
+      span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+      span.sr-only previous
+    a.right.carousel-control(href='#team-slide', role='button', data-slide='next')
+      span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+      span.sr-only next
+
+
+mixin category
+  .category
+    label.checkbox(for='checkbox-program')
+      input#checkbox-program.custom-checkbox(type='checkbox', data-toggle='checkbox', value='program')
+      span.icons
+        span.icon-unchecked
+        span.icon-checked
+      | 编程
+    label.checkbox(for='checkbox-design')
+      input#checkbox-design.custom-checkbox(type='checkbox', data-toggle='checkbox', value='design')
+      span.icons
+        span.icon-unchecked
+        span.icon-checked
+      | 设计
+    label.checkbox(for='checkbox-liter')
+      input#checkbox-liter.custom-checkbox(type='checkbox', data-toggle='checkbox', value='liter')
+      span.icons
+        span.icon-unchecked
+        span.icon-checked
+      | 文学
+    label.checkbox(for='checkbox-heart')
+      input#checkbox-heart.custom-checkbox(type='checkbox', data-toggle='checkbox', value='heart')
+      span.icons
+        span.icon-unchecked
+        span.icon-checked
+      | 公益
+    label.checkbox(for='checkbox-new')
+      input#checkbox-new.custom-checkbox(type='checkbox', data-toggle='checkbox', value='new')
+      span.icons
+        span.icon-unchecked
+        span.icon-checked
+      | 创业
+    label.checkbox(for='checkbox-other')
+      input#checkbox-other.custom-checkbox(type='checkbox', data-toggle='checkbox', value='other')
+      span.icons
+        span.icon-unchecked
+        span.icon-checked
+      | 其他
+    button.btn.btn-primary shaixuan
+    
+
+mixin activities
+  .row.activities
+    .col-sm-6.col-md-4
+      .thumbnail
+        img(src='', alt='activity name')
+        .caption
+          h3 Titile
+          p describe
+          p
+            button.btn.btn-info Detail
+            button.btn.btn-primary Other
+
+
+mixin teams
+  .row.teams
+    .col-sm-6.col-md-4
+      .thumbnail
+        img(src='', alt='activity name')
+        .caption
+          h3 Team_name
+          p describe
+          p
+            button.btn.btn-info Detail
+            button.btn.btn-primary Join
+
+mixin pages_index
+  .pages
+    .pagination
+      ul
+        li.previous
+          a.fui-arrow-left(href='')
+        li.active
+          a(href='') 1
+        li
+          a(href='') 2
+        li.next
+          a.fui-arrow-right(href='')
+
+mixin pages_team
+  .pages
+    .pagination
+      ul
+        li.previous
+          a.fui-arrow-left(href='')
+        li.active
+          a(href='') 1
+        li
+          a(href='') 2
+        li.next
+          a.fui-arrow-right(href='')

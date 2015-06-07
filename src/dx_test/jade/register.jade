@@ -1,0 +1,42 @@
+extends ./layout/default.jade
+
+block title
+  title 中大TEAM-注册
+
+block append style
+  link(rel='stylesheet', href='./css/login.css')
+
+block content
+  .login
+    .login-screen
+      .login-icon
+        img(alt='Welcome to sysuteam')
+      .login-form
+        .form-group
+          input#register-name.form-control.login-field(type='text', placeholder='Enter your name')
+          label.login-field-icon.fui-user(for='register-name')
+        .form-group
+          input#register-email.form-control.login-field(type='email', placeholder='Enter your email')
+          label.login-field-icon.fui-mail(for='register-email')
+        .form-group
+          input#register-pass.form-control.login-field(type='password', placeholder='Enter your password')
+          label.login-field-icon.fui-lock(for='login-pass')
+        .form-group
+          input#register-pass-sure.form-control.login-field(type='password', placeholder='Enter your password again')
+          label.login-field-icon.fui-lock(for='login-pass-sure')
+        .form-group
+          .tagsinput-primary
+            input.tagsinput(value='设计, 编程, 排球', data-role='tagsinput', name='tagsinput', style='display:none;')
+            .bootstrap-tagsinput
+              span.tag.label.label-info 设计
+                span(data-role='remove')
+              span.tag.label.label-info 编程
+                span(data-role='remove')
+              span.tag.label.label-info 排球
+                span(data-role='remove')
+              input(type='text' placeholder='new tag' style='width: 3em !important;')
+        .form-group
+          button.btn.btn-primary.btn-lg.btn-block Sign up
+
+block append scripts
+  script(type='text/javascript', src='./js/register.js')

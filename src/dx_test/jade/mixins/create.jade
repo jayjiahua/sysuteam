@@ -1,0 +1,21 @@
+mixin activity_title
+  .title.col-md-8.col-sm-8
+    .input-group
+      .input-group-addon 标题
+      input#title.form-control(type='text', placeholder='enter title')
+
+mixin datepicker
+  .time.col-md-3.col-sm-3
+    .input-group
+      .input-group-addon 时间
+      #datetimepicker.input-append.date
+        input(size='16', type='text', value='')
+        span.add-on
+          i.icon-th
+
+mixin ueditor
+  script#editor(name='content', type='text/plain') enter your activity info
+  script(type='text/javascript', src='./public/ueditor/ueditor.config.js')
+  script(type='text/javascript', src='./public/ueditor/ueditor.all.js')
+  script(type='text/javascript').
+    var ue = UE.getEditor('editor')
