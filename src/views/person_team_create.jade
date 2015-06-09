@@ -1,36 +1,26 @@
-extend layout
-
-block append head
-  link(href="/dist/css/sysuteam/person_team_create.css", rel="stylesheet")
-  script(type="text/javascript", charset="utf-8", src="/ueditor/ueditor.config.js")
-  script(type="text/javascript", charset="utf-8", src="/ueditor/ueditor.all.min.js")
+extends ./layout/default.jade
+include ./mixins/create.jade
 
 block title
   title 中大TEAM-创建队伍
- 
+
+block append style
+  link(rel='stylesheet', href='/dist/css/sysuteam/create.css')
+
 block content
-  #mycontainer
-    #user_img
-      img.img-circle.user_portrait(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
-    h3(style="text-align:center;") 创建新的队伍
-    // 队伍名称
-    form(method="POST")
-      #team_name
-        div.input-group
-          span.input-group-addon#basic-addon1 队名
-          input#title.form-control(name="name" type="text", placeholder="team name", aria-describedby="basic-addon1")
+  .container
+    h3.text-center create team
+    .row
+      +title
+      +type
+      +datepicker
+    .row
+      +contact
+      +tag
+    +ueditor
+    .row
+      .col-md-3.col-sm-3
+        button.submit.btn.btn-primary(type='submit') submit
 
-      // 队伍简介
-      #team_info
-        script#editor(type="text/plain", style="width:100%;height:500px;")
-        input(name='info' id="info" type="hidden") 
-      br
-      p(style="text-align:center;")
-        button.btn.btn-primary#submit 创建
-
-  block extrajs
-    script(type="text/javascript", src="dist/js/bootstrap-datetimepicker.js", charset="UTF-8")
-    script(type="text/javascript")
-      $('#datetimepicker').datetimepicker();
-    script(type="text/javascript") var ue = UE.getEditor('editor');
-    script(type="text/javascript", src="dist/js/ue_submit.js")
+block append scripts
+  script(type='text/javascript', src='/dist/js/sysuteam/create_team.js')

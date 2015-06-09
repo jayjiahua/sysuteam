@@ -1,38 +1,21 @@
-extend layout
-
-block append head
-  link(href="/dist/css/sysuteam/team_detail.css", rel="stylesheet")
+extends ./layout/default.jade
+include ./mixins/detail.jade
 
 block title
   title 中大TEAM-队伍详情
- 
+
+block append style
+  link(rel='stylesheet', href='/dist/css/sysuteam/detail.css')
+
 block content
-  #mycontainer
-
-    img#team_img(src="/img/myteam.jpg")
-
-    #team_info
-      h3 #{team[0].name}
-        //span.label.label-danger(style="font-size:15px;") web
-      p
-      p
-        if hasjoined == false
-          a#join.btn.btn-primary(role="button", href="/join/#{team[0].id}") 加入
-        else
-          p 你已经在该队伍中
-
-    .progress
-      .progress-bar(style="width: 80%;")
+  .container
+    +activity_post
+    +team_info
+    +new_member
+    +team_member
     hr
-    pre#team_detail !{team[0].info}
-      
-    hr
-    p 他们已经参加...
-    #hasjoined
-      each people in team
-        img.img-circle(alt="140x140", data-src="holder.js/140x140", src="", data-holder-rendered="true")
+    +comments
+    +ueditor
 
-  block extrajs
-    script(type="text/javascript", src="/dist/js/bootstrap-datetimepicker.js", charset="UTF-8")
-    script(type="text/javascript", src="/dist/js/join.js")
-    script(type="text/javascript") var ue = UE.getEditor('editor');
+block append scripts
+  script(type='text/javascript', src='/dist/js/sysuteam/index.js')
