@@ -1,0 +1,88 @@
+mixin activity_post
+  .post.row
+    img.center-block(src='/dist/img/slide0.jpg')
+
+mixin activity_info
+  .row
+    .col-md-12.col-sm-12
+      h3 
+        span.title activity_title
+        span.btn.btn-sm.btn-danger tag-a
+        span.btn.btn-sm.btn-success tag-b
+        span.btn.btn-sm.btn-info tag-c
+  .row
+    .col-md-2.col-sm-2
+      button.btn.btn-primary(type='button') new team
+  .row
+    .col-md-12.col-sm-12
+      p description.....
+
+mixin team_info
+  .row
+    .col-md-12.col-sm-12
+      h3 
+        span.title team-name
+        span.btn.btn-sm.btn-danger tag-a
+        span.btn.btn-sm.btn-success tag-b
+        span.btn.btn-sm.btn-info tag-c
+  .row
+    .col-md-2.col-sm-2
+      button.btn.btn-primary(type='button', name='join_team') join
+  .row
+    .col-md-12.col-sm-12
+      p description.....
+
+mixin team_list
+  .row
+    .col-sm-6.col-md-4
+      .thumbnail
+        img(src='', alt='team name')
+        .caption
+          h3 Team_name
+          p describe
+          p
+            button.btn.btn-info Detail
+            button.btn.btn-primary Join
+
+mixin new_member
+  .row
+    h3 wanted to join
+  .row
+    .col-sm-3.col-md-3
+      a
+        img.img-circle(src='', alt='140X140 new member?')
+    .col-sm-2.col-md-1
+      button.btn.btn-info(type='submit') allow
+    .col-sm-2.col-md-1
+      button.btn.btn-danger(type='submit') refuse
+
+mixin team_member
+  .row
+    h3 members
+  .row
+    .col-sm-3.col-md-3
+      a
+        img.img-circle(src='', alt='140X140 member')
+
+mixin comments
+  .row
+    h3 comments
+  .row
+    .col-sm-2.col-md-2
+      img.img-circle(src='', alt='140X140 other')
+    .col-sm-offset-1.col-md-offset-1.col-sm-8.col-md-8
+      p comments
+
+mixin ueditor
+  .row
+    .col-sm-2.col-md-2
+      img.img-circle(src='', alt='140X140 current-user')
+    .col-sm-offset-1.col-md-offset-1.col-sm-8.col-md-8
+      script#editor(name='content', type='text/plain') enter your comments
+      script(type='text/javascript', src='/dist/ueditor/ueditor.config.js')
+      script(type='text/javascript', src='/dist/ueditor/ueditor.all.js')
+      script(type='text/javascript').
+        var ue = UE.getEditor('editor', {
+          initialFrameWidth: 480,
+          initialFrameHeight: 160
+        });
