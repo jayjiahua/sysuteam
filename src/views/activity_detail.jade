@@ -12,12 +12,10 @@ block content
     img(src="/img/slide0.jpg")
 
     #acticity_info
-      h3
-        | 维纳斯歌手大赛&nbsp&nbsp&nbsp
-        span.label.label-danger(style="font-size:15px;") &#27468;&#21809;
+      h3 #{activity.name}
       p
       p
-        a.btn.btn-primary(role="button", href="#") &#21019;&#38431;
+        a.btn.btn-primary(role="button", href="/createteamInActivity/#{activity.id}") &#21019;&#38431;
         a.btn.btn-info(role="button", href="#") &#32452;&#38431;
 
     .progress

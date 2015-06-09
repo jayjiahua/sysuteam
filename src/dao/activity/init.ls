@@ -23,7 +23,7 @@ module.exports = {
 	#		add-team result.last_insert_id, activity-info, user-id, callback
 
 	get-all-activities: (callback) ->
-		sql = "SELECT * FROM ??"
+		sql = "SELECT * FROM ?? WHERE id != 0"
 		inserts = ['Activities']
 		sql = conn.format sql, inserts
 		console.log "SQL语句："+sql
@@ -32,14 +32,14 @@ module.exports = {
 
 	get-all-personal-activities: (callback) ->
 		#sql = "SELECT * FROM Teamer WHERE activity_id = 0"
-		sql = "SELECT * FROM Teamer as t, Users as u, Team_user_role as tr WHERE t.activity_id = 0 AND t.id = tr.team_id AND tr.user_id = u.id AND tr.role = 1"
+		sql = "SELECT t.name, t.create_time, u.username, tr.team_id FROM Teamer as t, Users as u, Team_user_role as tr WHERE t.activity_id = 0 AND t.id = tr.team_id AND tr.user_id = u.id AND tr.role = 1"
 		console.log "SQL语句："+sql
 		conn.query sql, (err, result, fields) ->
 			callback err, result
 
 	get-activity-by-id: (activity-id, callback) ->
-		sql = "SELECT * FROM ?? WHRER id = ?"
-		inserts = ['Activities', conn.escape(activity-id)]
+		sql = "SELECT * FROM Activities WHERE id = ?"
+		inserts = [conn.escape(activity-id)]
 		sql = conn.format sql, inserts
 		console.log "SQL语句："+sql
 		conn.query sql, (err, result, fields) ->

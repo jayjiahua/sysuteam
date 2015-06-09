@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `web_course`.`Activities` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '活动id自增长',
   `name` VARCHAR(45) NOT NULL COMMENT '活动的名字',
   `content` LONGTEXT NOT NULL COMMENT '活动的内容',
+  `sponsor_id` INT(11),
   `start_time` VARCHAR(45) NOT NULL COMMENT '活动开始的时间',
   `end_time` VARCHAR(45) NULL COMMENT '活动结束后的时间',
   PRIMARY KEY (`id`))
