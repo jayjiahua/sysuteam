@@ -22,17 +22,17 @@ module.exports = {
 
 
 
-    add-team: (activity-id, team-info, user-id, callback) ->
-        # team-info = {name: 'yoxi', info: 'come on', activity_id: activity-id}
+    add-team: (team-info, user-id, callback) ->
         sql = "INSERT INTO ?? SET ?"
         inserts = ['Teamer', team-info]
         sql = conn.format sql, inserts
         console.log "SQL语句："+sql
         conn.query sql, (err, result, fields) ->
-            sql2 = "INSERT INTO Team_user_role(team_id, user_id, role) VALUES (last_insert_id(), #{user-id}, 1)"
-            console.log "SQL语句："+sql
-            conn.query sql, (err, result, fields) ->
-                callback err, result    
+            insert-id = result.insert-id
+            sql2 = "INSERT INTO Team_user_role(team_id, user_id, role) VALUES (#{result.insert-id}, #{user-id}, 1)"
+            console.log "SQL语句："+sql2
+            conn.query sql2, (err, result, fields) ->
+                callback err, result, insert-id
 
     add-personal-team: (team-info, user-id, callback) ->
         sql = "INSERT INTO ?? SET ?"
@@ -62,9 +62,9 @@ module.exports = {
         conn.query sql, (err, result) ->
             callback err, result
 
-    delete-team-by-id: (team-id, callback) ->
-        sql = "DELETE FROM ?? WHERE id = ?"
-        inserts = ['Teamer', conn.escape(team-id)]
+    delete-team-by-id: (team-id, user-id, callback) ->
+        sql = "DELETE t FROM Teamer t, Team_user_role tr WHERE t.id = ? AND tr.user_id = ? AND tr.team_id = ? AND tr.role = 1"
+        inserts = [conn.escape(team-id), conn.escape(user-id), conn.escape(team-id)]
         sql = conn.format sql, inserts
         console.log "SQL语句："+sql
         conn.query sql, (err, result) ->

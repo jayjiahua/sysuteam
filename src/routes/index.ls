@@ -16,8 +16,12 @@ get-hash-password = (raw-password) ->
 
 module.exports = (user, team, activity)->
 
-  router.get '/', (req, res)!-> 
-    activity.get-all-personal-activities req, res
+  router.get '/', (req, res)!->
+    if req.cookies.visit
+      activity.get-all-personal-activities req, res
+    else
+      res.cookie 'visit', true
+      res.render 'start'
 
   router.get '/createteam', is-authenticated, (req, res)!->
     res.render 'person_team_create', user: req.cookies.user
@@ -25,18 +29,28 @@ module.exports = (user, team, activity)->
   router.post '/createteam', is-authenticated, (req, res) !->
     activity.add-personal-activity req, res
 
-  # 只是前端测试用，直接返回静态页面，最后路由的命名不是这样的
-  router.get '/userinfo', (req, res)!->
+  router.get '/createteamInActivity/:activityid', is-authenticated, (req, res) !->
+    res.render 'person_team_create', user: req.cookies.user
+
+  router.post '/createteamInActivity/:activityid', is-authenticated, (req, res) !->
+    team.add-team-in-activity req, res, req.params.activityid
+
+  router.get '/userinfo', is-authenticated, (req, res)!->
     res.render 'userinfo'
-  router.get '/createactivity', (req, res)!->
+  
+  router.get '/createactivity', is-authenticated, (req, res)!->
     res.render 'sponsor_activity_create'
-  router.get '/activitydetail', (req, res)!->
-    res.render 'activity_detail'
+
+  router.get '/activitydetail/:activityid', (req, res)!->
+    activity.get-one-activity req, res, parse-int req.params.activityid
   
   router.get '/start', (req, res)!->
     res.render 'start'
   router.get '/createactivity', (req, res)!->
     res.render 'sponsor_activity_create'
+
+  router.post '/createactivity', (req, res) !->
+    activity.add-activity req, res
   #####
   router.get '/team', (req, res)!->
     res.render 'index _teams'
