@@ -6,19 +6,19 @@ mixin carousel_index
       li(data-target='#index-slide', data-slide-to='2')
     .carousel-inner(role='list-box')
       .item.active
-        img(src='/dist/img/slide0.jpg', alt='voice')
+        img(src='/img/slide0.jpg', alt='voice')
         .carousel-caption
           .slide-info
             h3 维纳斯歌手大赛
             p 不看一场维纳斯枉为中大人
       .item
-        img(src='/dist/img/slide1.jpg', alt='a')
+        img(src='/img/slide1.jpg', alt='a')
         .carousel-caption
           .slide-info
             h3 中大院系篮球赛
             p 篮球赛！有妹子！
       .item
-        img(src='/dist/img/slide2.jpg', alt='b')
+        img(src='/img/slide2.jpg', alt='b')
         .carousel-caption
           .slide-info
             h3 文艺写作大赛
@@ -38,19 +38,19 @@ mixin carousel_team
       li(data-target='#team-slide', data-slide-to='2')
     .carousel-inner(role='list-box')
       .item.active
-        img(src='/dist/img/team0.jpg', alt='voice')
+        img(src='/img/team0.jpg', alt='voice')
         .carousel-caption
           .slide-info
             h3 team0
             p 000000
       .item
-        img(src='/dist/img/team1.jpg', alt='a')
+        img(src='/img/team1.jpg', alt='a')
         .carousel-caption
           .slide-info
             h3 team1
             p 111111
       .item
-        img(src='/dist/img/team2.jpg', alt='b')
+        img(src='/img/team2.jpg', alt='b')
         .carousel-caption
           .slide-info
             h3 team2
@@ -106,27 +106,33 @@ mixin category
 
 mixin activities
   .row.activities
-    .col-sm-6.col-md-4
-      .thumbnail
-        img(src='', alt='activity name')
-        .caption
-          h3 Titile
-          p describe
-          p
-            button.btn.btn-info Detail
-            button.btn.btn-primary Other
+    each activity in activities 
+      .col-sm-6.col-md-4
+        .thumbnail
+          img(data-src="holder.js/100%x200", src='', alt='activity name')
+          .caption
+            h6 #{activity.name}
+            span 队长： #{activity.username}
+            br
+            span 时间： #{activity.create_time}
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="/team/#{activity.team_id}") 详情
+              a.btn.btn-danger(role="button", href="#") 喜欢
 
 mixin teams
   .row.teams
-    .col-sm-6.col-md-4
-      .thumbnail
-        img(src='', alt='activity name')
-        .caption
-          h3 Team_name
-          p describe
-          p
-            button.btn.btn-info Detail
-            button.btn.btn-primary Join
+    each activity in activities 
+      .col-sm-6.col-md-4
+        .thumbnail
+          img(data-src="holder.js/100%x200", src='', alt='activity name')
+          .caption
+            h6 #{activity.name}
+            span 队长： #{activity.username}
+            br
+            span 时间： #{activity.create_time}
+            p.activity_bts
+              a.btn.btn-primary(role="button", href="/team/#{activity.team_id}") 详情
+              a.btn.btn-danger(role="button", href="#") 喜欢
 
 mixin pages_index
   .pages

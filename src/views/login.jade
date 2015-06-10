@@ -11,15 +11,15 @@ block content
     .login-screen
       .login-icon
         img(alt='Welcome to sysuteam')
-      .login-form
+      .login-form.col-sm-10.col-md-6
         .form-group
-          input#login-name.form-control.login-field(type='text', placeholder='Enter your name')
+          input#username.form-control.login-field(type='text', placeholder='Enter your name')
           label.login-field-icon.fui-user(for='login-name')
         .form-group
-          input#login-pass.form-control.login-field(type='password', placeholder='Enter your password')
+          input#password.form-control.login-field(type='password', placeholder='Enter your password')
           label.login-field-icon.fui-lock(for='login-pass')
-          button.btn.btn-primary.btn-lg Sign in
-          button.btn.btn-primary.btn-lg Sign up
+        p(style="text-align:center;")
+          button.btn.btn-primary.btn-lg#login_btn Sign in
 
 block append scripts
-  script(type='text/javascript', src='/dist/js/sysuteam/login.js')
+  script(type='text/javascript', src='/dist/js/login.js')

@@ -1,36 +1,39 @@
 mixin activity_post
   .post.row
-    img.center-block(src='/dist/img/slide0.jpg')
+    img.center-block(src='/img/slide0.jpg')
 
 mixin activity_info
   .row
     .col-md-12.col-sm-12
       h3 
-        span.title activity_title
+        span.title #{activity.name}
         span.btn.btn-sm.btn-danger tag-a
         span.btn.btn-sm.btn-success tag-b
         span.btn.btn-sm.btn-info tag-c
   .row
     .col-md-2.col-sm-2
-      button.btn.btn-primary(type='button') new team
+      a.btn.btn-primary(href="/createteamInActivity/#{activity.id}") new team
   .row
     .col-md-12.col-sm-12
-      p description.....
+      p #{activity.content}
 
 mixin team_info
   .row
     .col-md-12.col-sm-12
       h3 
-        span.title team-name
+        span.title #{team[0].name}
         span.btn.btn-sm.btn-danger tag-a
         span.btn.btn-sm.btn-success tag-b
         span.btn.btn-sm.btn-info tag-c
   .row
     .col-md-2.col-sm-2
-      button.btn.btn-primary(type='button', name='join_team') join
+      if hasjoined
+        p You have joined in!
+      else
+        a.btn.btn-primary(href="/join/#{team[0].id}") Join
   .row
     .col-md-12.col-sm-12
-      p description.....
+      p #{team[0].info}
 
 mixin team_list
   .row
@@ -78,9 +81,9 @@ mixin ueditor
     .col-sm-2.col-md-2
       img.img-circle(src='', alt='140X140 current-user')
     .col-sm-offset-1.col-md-offset-1.col-sm-8.col-md-8
-      script#editor(name='content', type='text/plain') enter your comments
-      script(type='text/javascript', src='/dist/ueditor/ueditor.config.js')
-      script(type='text/javascript', src='/dist/ueditor/ueditor.all.js')
+      script#editor(name='content', type='text/plain')
+      script(type='text/javascript', src='/ueditor/ueditor.config.js')
+      script(type='text/javascript', src='/ueditor/ueditor.all.js')
       script(type='text/javascript').
         var ue = UE.getEditor('editor', {
           initialFrameWidth: 480,

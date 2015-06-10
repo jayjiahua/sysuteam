@@ -27,16 +27,9 @@ block content
         .form-group
           .tagsinput-primary
             input.tagsinput(value='设计, 编程, 排球', data-role='tagsinput', name='tagsinput', style='display:none;')
-            .bootstrap-tagsinput
-              span.tag.label.label-info 设计
-                span(data-role='remove')
-              span.tag.label.label-info 编程
-                span(data-role='remove')
-              span.tag.label.label-info 排球
-                span(data-role='remove')
-              input(type='text' placeholder='new tag' style='width: 3em !important;')
         .form-group
-          button.btn.btn-primary.btn-lg.btn-block Sign up
+          p(style="text-align:center;")
+            button.btn.btn-primary.btn-lg.btn-block Sign up
 
 block append scripts
   script(type='text/javascript', src='/dist/js/sysuteam/register.js')
