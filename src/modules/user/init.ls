@@ -2,6 +2,7 @@ require! ['crypto']
 
 user = require('../../dao/user/init')
 
+
 get-hash-password = (raw-password) ->
   # 加密
   sha256 = crypto.createHash 'sha256'
@@ -47,12 +48,10 @@ module.exports = {
 
     query-user : (req, res, id) ->
         user.get-user-by-id id, (err, result)->
-            msg = '用户信息:' + result[0]
-            console.log msg
             if err
-                res.render 'test', ret:msg
+                res.render 'userinfo', infor:result
             else
-                res.render 'test', ret:result[0]['username']
+                res.render 'userinfo', infor:result
 
     update-user : (req, res, id, update-infor) ->
         user.update-user-by-id id, update-infor, (err, result)->
