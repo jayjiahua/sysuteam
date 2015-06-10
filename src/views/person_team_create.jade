@@ -9,7 +9,7 @@ block append style
 
 block content
   .container
-    h3.text-center create team
+    h3.text-center 创建队伍
     form(method="POST")
       .row
         +title
@@ -21,9 +21,10 @@ block content
         +tag
       .row
         +ueditor
+        input(name='info' id="uecontent" type="hidden")
       .row
         .col-md-3.col-sm-3.text-center
-          button.submit.btn.btn-primary(type='submit') submit
+          button.submit.btn.btn-primary#submit(type='submit') 提交
 
 block append scripts
-  script(type='text/javascript', src='/dist/js/sysuteam/create_team.js')
+  script(type='text/javascript', src='/dist/js/ue_submit.js')
