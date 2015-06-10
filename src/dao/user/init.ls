@@ -5,8 +5,9 @@ conn = require('../../conf/db').conn
 module.exports = {
     get-user-by-id: (id, callback) ->
         # 据说这样的写法可以防注入呢
-        sql = "SELECT * FROM ?? WHERE id = ?"
-        inserts = ['Users', conn.escape(id)]
+        # 返回用户信息+用户所加入队伍信息
+        sql = "SELECT * FROM ?? u, ?? r, ?? t WHERE u.id = ? and u.id = r.user_id and t.id = r.team_id"
+        inserts = ['Users', 'Team_user_role', 'Teamer', conn.escape(id)]
         sql = conn.format sql, inserts
         console.log "SQL语句："+sql
         conn.query sql, (err, result, fields) ->

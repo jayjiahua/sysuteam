@@ -36,7 +36,8 @@ module.exports = (user, team, activity)->
     team.add-team-in-activity req, res, req.params.activityid
 
   router.get '/userinfo', is-authenticated, (req, res)!->
-    res.render 'userinfo'
+    user.query-user req, res, req.cookies.user.id
+    # res.render 'userinfo'
   
   router.get '/createactivity', is-authenticated, (req, res)!->
     res.render 'sponsor_activity_create'
