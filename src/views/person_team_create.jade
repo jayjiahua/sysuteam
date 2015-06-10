@@ -10,17 +10,20 @@ block append style
 block content
   .container
     h3.text-center create team
-    .row
-      +title
-      +type
-      +datepicker
-    .row
-      +contact
-      +tag
-    +ueditor
-    .row
-      .col-md-3.col-sm-3.text-center
-        button.submit.btn.btn-primary(type='submit') submit
+    form(method="POST")
+      .row
+        +title
+        //+type
+        //+datepicker
+      .row
+        +contact
+      .row
+        +tag
+      .row
+        +ueditor
+      .row
+        .col-md-3.col-sm-3.text-center
+          button.submit.btn.btn-primary(type='submit') submit
 
 block append scripts
   script(type='text/javascript', src='/dist/js/sysuteam/create_team.js')

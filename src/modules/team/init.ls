@@ -41,10 +41,11 @@ module.exports = {
     add-team-in-activity: (req, res, activity-id) ->
         team-info = {
             name: req.param 'name'
-            info: req.param 'info'
+            info: req.param 'content'
             create_time: (moment new Date()).format 'YYYY-MM-DD HH:mm'
             activity_id: activity-id
         }
+        console.log team-info
         team.add-team team-info, req.cookies.user.id, (err, result, insert-id) ->
             if err
                 console.log err
