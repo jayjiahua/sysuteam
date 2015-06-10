@@ -1,24 +1,25 @@
-extend layout
-
-block append head
-  link(href="/dist/css/sysuteam/login.css", rel="stylesheet")
+extends ./layout/default.jade
 
 block title
   title 中大TEAM-登陆
- 
-block content
-  #mycontainer
-    form.centerdiv
-      .input-group
-        span#basic-addon1.input-group-addon 用户
-        input.form-control(type="text", placeholder="Username", aria-describedby="basic-addon1" id="username")
-      br
-      .input-group
-        span#basic-addon1.input-group-addon 密码
-        input.form-control.password(type="password", placeholder="password", aria-describedby="basic-addon1" id="password")
-      br
-      button(type="button").centerdiv_bt.btn.btn-embossed.btn-primary.btn-wide#login_btn
-        | 登陆
 
-  block extrajs
-    script(src="/dist/js/login.js")
+block append style
+  link(rel='stylesheet', href='/dist/css/sysuteam/login.css')
+
+block content
+  .login
+    .login-screen
+      .login-icon
+        img(alt='Welcome to sysuteam')
+      .login-form
+        .form-group
+          input#login-name.form-control.login-field(type='text', placeholder='Enter your name')
+          label.login-field-icon.fui-user(for='login-name')
+        .form-group
+          input#login-pass.form-control.login-field(type='password', placeholder='Enter your password')
+          label.login-field-icon.fui-lock(for='login-pass')
+          button.btn.btn-primary.btn-lg Sign in
+          button.btn.btn-primary.btn-lg Sign up
+
+block append scripts
+  script(type='text/javascript', src='/dist/js/sysuteam/login.js')

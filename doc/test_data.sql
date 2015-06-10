@@ -22,6 +22,5 @@ INSERT INTO Activities(name, content, start_time, end_time) VALUES ("Activity 5"
 INSERT INTO Activities(name, content, start_time, end_time) VALUES ("Activity 6", "This is Activity 6.", "2015-06-06", "2015-06-07");
 INSERT INTO Activities(name, content, start_time, end_time) VALUES ("Activity 7", "This is Activity 7.", "2015-06-07", "2015-06-08");
 
-
 INSERT INTO Role(id) VALUES (1);
 INSERT INTO Role(id) VALUES (2);

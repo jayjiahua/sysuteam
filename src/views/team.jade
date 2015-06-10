@@ -2,17 +2,17 @@ extends ./layout/default.jade
 include ./mixins/index.jade
 
 block title
-  title 中大TEAM-首页
+  title 中大TEAM-所有队伍
 
 block append style
   link(rel='stylesheet', href='/dist/css/sysuteam/index.css')
 
 block content
   .container
-    +carousel_index
+    +carousel_team
     +category
-    +activities
-    +pages_index
+    +teams
+    +pages_team
 
 block append scripts
   script(type='text/javascript', src='/dist/js/sysuteam/index.js')
