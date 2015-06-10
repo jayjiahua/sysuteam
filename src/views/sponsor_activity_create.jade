@@ -1,20 +1,28 @@
 extends ./layout/default.jade
-include ./mixins/detail.jade
+include ./mixins/create.jade
 
 block title
-  title 中大TEAM-活动详情
+  title 中大TEAM-创建活动
 
 block append style
-  link(rel='stylesheet', href='/dist/css/sysuteam/detail.css')
+  link(rel='stylesheet', href='/dist/css/sysuteam/create.css')
 
 block content
+  h3.text-center create new activity
   .container
-    +activity_post
-    +activity_info
-    +team_list
-    hr
-    +comments
+    .row
+      +title
+      +type
+      +datepicker
+    .row
+      +team_limit
+      +people_limit
+      +tag
     +ueditor
+    .row.submit
+      .col-md-2.col-sm-2
+        button.btn.btn-primary.btn-lg(type='submit', name='person_activity_create') submit
 
 block append scripts
-  script(type='text/javascript', src='/dist/js/activity_detail.js')
+  script(type="text/javascript") $('#datetimepicker').datetimepicker();
+  script(type='text/javascript', src='/dist/js/sysuteam/create_activity.js')
