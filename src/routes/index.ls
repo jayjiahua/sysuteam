@@ -21,7 +21,8 @@ module.exports = (user, team, activity)->
       activity.get-all-personal-activities req, res
     else
       res.cookie 'visit', true
-      res.render 'start'
+      #res.render 'start'
+      res.redirect '/register'
 
   router.get '/createteam', is-authenticated, (req, res)!->
     res.render 'person_team_create', user: req.cookies.user
