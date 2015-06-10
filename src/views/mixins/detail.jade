@@ -12,10 +12,10 @@ mixin activity_info
         span.btn.btn-sm.btn-info tag-c
   .row
     .col-md-2.col-sm-2
-      a.btn.btn-primary(href="/createteamInActivity/#{activity.id}") new team
+      a.btn.btn-primary(href="/createteamInActivity/#{activity.id}") 新建队伍
   .row
     .col-md-12.col-sm-12
-      p #{activity.content}
+      p !{activity.content}
 
 mixin team_info
   .row
@@ -28,12 +28,12 @@ mixin team_info
   .row
     .col-md-2.col-sm-2
       if hasjoined
-        p You have joined in!
+        p 你已经在此队伍中
       else
-        a.btn.btn-primary(href="/join/#{team[0].id}") Join
+        a#join.btn.btn-primary(href="/join/#{team[0].id}") 申请加入
   .row
     .col-md-12.col-sm-12
-      p #{team[0].info}
+      p !{team[0].info}
 
 mixin team_list
   .row
@@ -41,27 +41,27 @@ mixin team_list
       .thumbnail
         img(src='', alt='team name')
         .caption
-          h3 Team_name
-          p describe
+          h3 队伍名称
+          p 描述
           p
-            button.btn.btn-info Detail
-            button.btn.btn-primary Join
+            button.btn.btn-info 详情
+            button.btn.btn-primary 加入
 
 mixin new_member
   .row
-    h3 wanted to join
+    h3 申请加入
   .row
     .col-sm-3.col-md-3
       a
         img.img-circle(src='', alt='140X140 new member?')
     .col-sm-2.col-md-1
-      button.btn.btn-info(type='submit') allow
+      button.btn.btn-info(type='submit') 允许
     .col-sm-2.col-md-1
-      button.btn.btn-danger(type='submit') refuse
+      button.btn.btn-danger(type='submit') 拒绝
 
 mixin team_member
   .row
-    h3 members
+    h3 成员
   .row
     .col-sm-3.col-md-3
       a
@@ -69,12 +69,12 @@ mixin team_member
 
 mixin comments
   .row
-    h3 comments
+    h3 评论
   .row
     .col-sm-2.col-md-2
       img.img-circle(src='', alt='140X140 other')
     .col-sm-offset-1.col-md-offset-1.col-sm-8.col-md-8
-      p comments
+      p 评论
 
 mixin ueditor
   .row

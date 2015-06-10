@@ -44,8 +44,8 @@ module.exports = (user, team, activity)->
   router.get '/activitydetail/:activityid', (req, res)!->
     activity.get-one-activity req, res, parse-int req.params.activityid
   
-  router.get '/start', (req, res)!->
-    res.render 'start'
+  # router.get '/start', (req, res)!->
+  #   res.render 'start'
   router.get '/createactivity', (req, res)!->
     res.render 'sponsor_activity_create'
 

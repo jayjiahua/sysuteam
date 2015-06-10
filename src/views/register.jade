@@ -13,23 +13,23 @@ block content
         img(alt='Welcome to sysuteam')
       .login-form
         .form-group
-          input#register-name.form-control.login-field(type='text', placeholder='Enter your name')
+          input#register-name.form-control.login-field(type='text', placeholder='输入你的名字')
           label.login-field-icon.fui-user(for='register-name')
         .form-group
-          input#register-email.form-control.login-field(type='email', placeholder='Enter your email')
+          input#register-email.form-control.login-field(type='email', placeholder='输入你的email')
           label.login-field-icon.fui-mail(for='register-email')
         .form-group
-          input#register-pass.form-control.login-field(type='password', placeholder='Enter your password')
+          input#register-pass.form-control.login-field(type='password', placeholder='输入你的密码')
           label.login-field-icon.fui-lock(for='login-pass')
         .form-group
-          input#register-pass-sure.form-control.login-field(type='password', placeholder='Enter your password again')
+          input#register-pass-sure.form-control.login-field(type='password', placeholder='再次输入你的密码')
           label.login-field-icon.fui-lock(for='login-pass-sure')
         .form-group
           .tagsinput-primary
-            input.tagsinput(value='设计, 编程, 排球', data-role='tagsinput', name='tagsinput', style='display:none;')
+            input#register-skill.tagsinput(value='设计, 编程, 排球', data-role='tagsinput', name='tagsinput', style='display:none;')
         .form-group
           p(style="text-align:center;")
-            button.btn.btn-primary.btn-lg.btn-block Sign up
+            button.btn.btn-primary.btn-lg.btn-block#register_btn 注册
 
 block append scripts
-  script(type='text/javascript', src='/dist/js/sysuteam/register.js')
+  script(type='text/javascript', src='/dist/js/register.js')

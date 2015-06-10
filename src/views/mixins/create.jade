@@ -1,37 +1,37 @@
 mixin title
   .title.col-md-4.col-sm-4
     .input-group
-      .input-group-addon name
-      input.form-control(type='text', name='name', placeholder='enter activity title')
+      .input-group-addon 名称
+      input.form-control(type='text', name='name', placeholder='输入活动名称')
 
 mixin type
   .col-md-3.col-sm-3
     .input-group
-      .input-group-addon activity-type
-      input.form-control(type='text', name='type', placeholder='enter activity type')
+      .input-group-addon 活动类型
+      input.form-control(type='text', name='type', placeholder='输入活动类型')
 
 mixin datepicker
   .time.col-md-offset-1.col-sm-offset-1.col-md-4.col-sm-4
     .input-group
-      .input-group-addon start-time
+      .input-group-addon 开始时间
       input.form-control#datetimepicker(name='start-time', type='text', value='2015-06-07 14:00', data-date-format="yyyy-mm-dd hh:ii")
 
 mixin team_limit
   .col-md-4.col-sm-4
     .input-group
-      .input-group-addon team-limit
+      .input-group-addon 结束时间
       input.form-control(name='team-limit', type='text')
 
 mixin people_limit
   .col-md-3.col-sm-3
     .input-group
-      .input-group-addon team-people-limit
+      .input-group-addon 人数限制
       input.form-control(type='text', name='people-limit')
 
 mixin contact
   .col-md-6.col-sm-6
     .input-group
-      .input-group-addon contact
+      .input-group-addon 联系方式
       input.form-control(type='text', name='contact')
   .col-md-1.col-sm-1
 
