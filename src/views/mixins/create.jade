@@ -2,7 +2,7 @@ mixin title
   .title.col-md-4.col-sm-4
     .input-group
       .input-group-addon activity-title
-      input.form-control(type='text', name='title', placeholder='enter activity title')
+      input.form-control(type='text', name='name', placeholder='enter activity title')
 
 mixin type
   .col-md-3.col-sm-3
@@ -14,25 +14,25 @@ mixin datepicker
   .time.col-md-offset-1.col-sm-offset-1.col-md-4.col-sm-4
     .input-group
       .input-group-addon date
-      input.form-control#datetimepicker(type='text' value='2015-06-07 14:00' data-date-format="yyyy-mm-dd hh:ii")
+      input.form-control#datetimepicker(name='time', type='text', value='2015-06-07 14:00', data-date-format="yyyy-mm-dd hh:ii")
 
 mixin team_limit
   .col-md-4.col-sm-4
     .input-group
       .input-group-addon team-limit
-      input.form-control(type='text')
+      input.form-control(name='team-limit', type='text')
 
 mixin people_limit
   .col-md-3.col-sm-3
     .input-group
       .input-group-addon team-people-limit
-      input.form-control(type='text')
+      input.form-control(type='text', name='people-limit')
 
 mixin contact
   .col-md-6.col-sm-6
     .input-group
       .input-group-addon contact
-      input.form-control(type='text')
+      input.form-control(type='text', name='contact')
   .col-md-1.col-sm-1
 
 mixin tag
@@ -50,8 +50,8 @@ mixin tag
 
 mixin ueditor
   script#editor.row(name='content', type='text/plain') enter your activity info
-  script(type='text/javascript', src='/dist/ueditor/ueditor.config.js')
-  script(type='text/javascript', src='/dist/ueditor/ueditor.all.js')
+  script(type='text/javascript', src='/ueditor/ueditor.config.js')
+  script(type='text/javascript', src='/ueditor/ueditor.all.js')
   script(type='text/javascript').
     var ue = UE.getEditor('editor', {
       initialFrameHeight: 480

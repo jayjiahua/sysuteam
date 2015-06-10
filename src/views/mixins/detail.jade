@@ -1,6 +1,6 @@
 mixin activity_post
   .post.row
-    img.center-block(src='/dist/img/slide0.jpg')
+    img.center-block(src='/img/slide0.jpg')
 
 mixin activity_info
   .row
@@ -79,8 +79,8 @@ mixin ueditor
       img.img-circle(src='', alt='140X140 current-user')
     .col-sm-offset-1.col-md-offset-1.col-sm-8.col-md-8
       script#editor(name='content', type='text/plain') enter your comments
-      script(type='text/javascript', src='/dist/ueditor/ueditor.config.js')
-      script(type='text/javascript', src='/dist/ueditor/ueditor.all.js')
+      script(type='text/javascript', src='/ueditor/ueditor.config.js')
+      script(type='text/javascript', src='/ueditor/ueditor.all.js')
       script(type='text/javascript').
         var ue = UE.getEditor('editor', {
           initialFrameWidth: 480,
