@@ -11,15 +11,15 @@ block content
     .row
       .col-sm-3.col-md-3
         .row
-          img(src='', alt='user avatar')
-          h3 #{infor[0].username} 
+          img(data-src="holder.js/200x200", src='', alt='user avatar')
+          h3 #{user.username} 
           p
-            each tag in infor[0].me_info.split(',')
+            each tag in user.me_info.split(',')
               span.btn.btn-sm.btn-primary #{tag}
         .row
           h3 通知
           .col-sm-5.col-md-5
-            img(src='', alt='头像')
+            img(data-src="holder.js/100x100", alt='头像')
           .col-sm-7.col-md-7
             span 名称
       .col-sm-9.col-md-9
@@ -27,7 +27,7 @@ block content
           each team in infor
             .col-sm-4.col-md-4
               .thumbnail
-                img(src='', alt='队伍照片')
+                img(data-src="holder.js/100%x200",src='', alt='队伍照片')
                 .caption
                   h3 #{team.name}
                   //p !{team.info}

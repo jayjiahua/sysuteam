@@ -41,15 +41,11 @@ module.exports = (user, team, activity)->
     # res.render 'userinfo'
   
   router.get '/createactivity', is-authenticated, (req, res)!->
-    res.render 'sponsor_activity_create'
+    res.render 'sponsor_activity_create', user: req.cookies.user
 
   router.get '/activitydetail/:activityid', (req, res)!->
     activity.get-one-activity req, res, parse-int req.params.activityid
   
-  # router.get '/start', (req, res)!->
-  #   res.render 'start'
-  router.get '/createactivity', (req, res)!->
-    res.render 'sponsor_activity_create'
 
   router.post '/createactivity', (req, res) !->
     activity.add-activity req, res
@@ -94,6 +90,9 @@ module.exports = (user, team, activity)->
       me_info: req.body.me_info
     }
     user.creat-user req, res, user-infor
+
+  router.get '/deleteteam/:teamid', (req, res) !->
+    team.delete-team req, res, parse-int req.params.teamid
 
   router.get '/queryuser', (req, res)!->
     id = 30
