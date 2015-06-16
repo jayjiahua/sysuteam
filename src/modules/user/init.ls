@@ -49,9 +49,9 @@ module.exports = {
     query-user : (req, res, id) ->
         user.get-user-by-id id, (err, result)->
             if err
-                res.render 'userinfo', infor:result
+                res.render 'userinfo', infor:result, user: req.cookies.user
             else
-                res.render 'userinfo', infor:result
+                res.render 'userinfo', infor:result, user: req.cookies.user
 
     update-user : (req, res, id, update-infor) ->
         user.update-user-by-id id, update-infor, (err, result)->

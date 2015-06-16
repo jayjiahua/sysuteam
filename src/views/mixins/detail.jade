@@ -29,6 +29,7 @@ mixin team_info
     .col-md-2.col-sm-2
       if hasjoined
         p 你已经在此队伍中
+        a#del.btn.btn-danger(href="/deleteteam/#{team[0].id}") 删除队伍
       else
         a#join.btn.btn-primary(href="/join/#{team[0].id}") 申请加入
   .row
