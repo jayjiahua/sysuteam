@@ -1,0 +1,48 @@
+extends ./layout.jade
+
+block style
+  link(rel='stylesheet', href='/dist/css/bootstrap.min.css')
+  link(rel='stylesheet', href='/dist/css/bootstrap-datetimepicker.css')
+  link(rel='stylesheet', href='/dist/css/flat-ui.min.css')
+  link(rel='stylesheet', href='/dist/css/sysuteam/global.css')
+
+block navigation
+  nav.navbar.navbar-default(role='navigation')
+    .navbar-header
+      a.navbar-brand(href='/') 中大TEAM
+      a.navbar-brand(href='/createteam') 创建队伍
+      a.navbar-brand(href='/createactivity') 创建活动(测试)
+      
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        if !user
+          li
+            p.navbar-text
+              a.navbar-link(href='/login') 登陆
+          li
+            p.navbar-text
+              a.navbar-link(href='/register') 注册
+        else
+          li
+            p.navbar-text
+              a.navbar-link(href='/userinfo') #{user.username}
+          li
+            p.navbar-text
+              a.navbar-link(href='/logout') 注销
+
+      form.navbar-form.navbar-right(role='search', action='#')
+        .form-group.input-group
+          input.form-control(type='search', placeholder='搜索活动或队伍')
+          span.input-group-btn
+            button.btn(type='submit')
+              span.fui-search
+
+block footer
+  footer
+    p.text-center Copyright &#169; sysuteam 2015. All Rights Reserved
+
+block scripts
+  script(type='text/javascript', src='/dist/js/jquery.js')
+  script(type='text/javascript', src='/dist/js/bootstrap.min.js')
+  script(type='text/javascript', src='/dist/js/bootstrap-datetimepicker.js', charset='UTF-8')
+  script(type='text/javascript', src='/dist/js/flat-ui.min.js')

@@ -1,0 +1,18 @@
+extends ./layout/default.jade
+include ./mixins/index.jade
+
+block title
+  title 中大TEAM-所有队伍
+
+block append style
+  link(rel='stylesheet', href='/dist/css/sysuteam/index.css')
+
+block content
+  .container
+    +carousel_team
+    +category
+    +teams
+    +pages_team
+
+block append scripts
+  script(type='text/javascript', src='/dist/js/sysuteam/index.js')

@@ -1,0 +1,92 @@
+mixin activity_post
+  .post.row
+    img.center-block(src='/img/slide0.jpg')
+
+mixin activity_info
+  .row
+    .col-md-12.col-sm-12
+      h3 
+        span.title #{activity.name}
+        span.btn.btn-sm.btn-danger tag-a
+        span.btn.btn-sm.btn-success tag-b
+        span.btn.btn-sm.btn-info tag-c
+  .row
+    .col-md-2.col-sm-2
+      a.btn.btn-primary(href="/createteamInActivity/#{activity.id}") 新建队伍
+  .row
+    .col-md-12.col-sm-12
+      p !{activity.content}
+
+mixin team_info
+  .row
+    .col-md-12.col-sm-12
+      h3 
+        span.title #{team[0].name}
+        span.btn.btn-sm.btn-danger tag-a
+        span.btn.btn-sm.btn-success tag-b
+        span.btn.btn-sm.btn-info tag-c
+  .row
+    .col-md-2.col-sm-2
+      if hasjoined
+        p 你已经在此队伍中
+        a#del.btn.btn-danger(href="/deleteteam/#{team[0].id}") 删除队伍
+      else
+        a#join.btn.btn-primary(href="/join/#{team[0].id}") 申请加入
+  .row
+    .col-md-12.col-sm-12
+      p !{team[0].info}
+
+mixin team_list
+  .row
+    .col-sm-6.col-md-4
+      .thumbnail
+        img(src='', alt='team name')
+        .caption
+          h3 队伍名称
+          p 描述
+          p
+            button.btn.btn-info 详情
+            button.btn.btn-primary 加入
+
+mixin new_member
+  .row
+    h3 申请加入
+  .row
+    .col-sm-3.col-md-3
+      a
+        img.img-circle(src='', alt='140X140 new member?')
+    .col-sm-2.col-md-1
+      button.btn.btn-info(type='submit') 允许
+    .col-sm-2.col-md-1
+      button.btn.btn-danger(type='submit') 拒绝
+
+mixin team_member
+  .row
+    h3 成员
+  .row
+    .col-sm-3.col-md-3
+      a
+        img.img-circle(src='', alt='140X140 member')
+
+mixin comments
+  .row
+    h3 评论
+  .row
+    .col-sm-2.col-md-2
+      img.img-circle(src='', alt='140X140 other')
+    .col-sm-offset-1.col-md-offset-1.col-sm-8.col-md-8
+      p 评论
+
+mixin ueditor
+  .row
+    .col-sm-2.col-md-2
+      img.img-circle(src='', alt='140X140 current-user')
+    .col-sm-offset-1.col-md-offset-1.col-sm-8.col-md-8
+      script#editor(name='content', type='text/plain')
+      script(type='text/javascript', src='/ueditor/ueditor.config.js')
+      script(type='text/javascript', src='/ueditor/ueditor.all.js')
+      script(type='text/javascript').
+        var ue = UE.getEditor('editor', {
+          initialFrameWidth: 480,
+          initialFrameHeight: 160
+        });

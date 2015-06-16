@@ -1,0 +1,55 @@
+extends ./layout/default.jade
+
+block title
+  title 中大TEAM-首页
+
+block append style
+  link(rel='stylesheet', href='/dist/css/sysuteam/userinfo.css')
+
+block content
+  .container
+    .row
+      .col-sm-3.col-md-3
+        .row
+          img(data-src="holder.js/200x200", src='', alt='user avatar')
+          h3 #{user.username} 
+          p
+            each tag in user.me_info.split(',')
+              span.btn.btn-sm.btn-primary #{tag}
+        .row
+          h3 通知
+          .col-sm-5.col-md-5
+            img(data-src="holder.js/100x100", alt='头像')
+          .col-sm-7.col-md-7
+            span 名称
+      .col-sm-9.col-md-9
+        .row
+          each team in infor
+            .col-sm-4.col-md-4
+              .thumbnail
+                img(data-src="holder.js/100%x200",src='', alt='队伍照片')
+                .caption
+                  h3 #{team.name}
+                  //p !{team.info}
+                  p
+                    if team.role == 1
+                      p 角色: 队长
+                    else
+                      p 角色: 队员
+                    //button.btn.btn-danger #{team.id}
+                    a.btn.btn-info(role="button", href="/team/#{team.id}") 查看
+        //-分页
+        //- .row
+        //-   .pagination
+        //-     ul
+        //-       li.previous
+        //-         a.fui-arrow-left(href='')
+        //-       li.active
+        //-         a(href='') 1
+        //-       li
+        //-         a(href='') 2
+        //-       li.next
+        //-         a.fui-arrow-right(href='')
+
+block append scripts
+  script(type='text/javascript', src='/dist/js/sysuteam/userinfo.js')

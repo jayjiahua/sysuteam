@@ -1,5 +1,19 @@
-extends layout
+extends ./layout/default.jade
+include ./mixins/index.jade
+
+block title
+  title 中大TEAM-首页
+
+block append style
+  link(rel='stylesheet', href='/dist/css/sysuteam/index.css')
 
 block content
-	div.container Welcom to SYSU Team
-					
+  .container
+    +carousel_index
+    +category
+    +activities
+    //-暂时不弄分页
+    //-+pages_index
+
+block append scripts
+  script(type='text/javascript', src='/dist/js/sysuteam/index.js')

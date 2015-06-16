@@ -1,0 +1,30 @@
+extends ./layout/default.jade
+include ./mixins/create.jade
+
+block title
+  title 中大TEAM-创建队伍
+
+block append style
+  link(rel='stylesheet', href='/dist/css/sysuteam/create.css')
+
+block content
+  .container
+    h3.text-center 创建队伍
+    form(method="POST")
+      .row
+        +title
+        //+type
+        //+datepicker
+      .row
+        +contact
+      .row
+        +tag
+      .row
+        +ueditor
+        input(name='info' id="uecontent" type="hidden")
+      .row
+        .col-md-3.col-sm-3.text-center
+          button.submit.btn.btn-primary#submit(type='submit') 提交
+
+block append scripts
+  script(type='text/javascript', src='/dist/js/ue_submit.js')

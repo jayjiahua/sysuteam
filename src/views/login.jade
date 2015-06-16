@@ -1,0 +1,25 @@
+extends ./layout/default.jade
+
+block title
+  title 中大TEAM-登陆
+
+block append style
+  link(rel='stylesheet', href='/dist/css/sysuteam/login.css')
+
+block content
+  .login
+    .login-screen
+      .login-icon
+        img(src="/img/sysulogo.jpg", data-src="holder.js/200x200", alt='Welcome to sysuteam')
+      .login-form.col-sm-10.col-md-6
+        .form-group
+          input#username.form-control.login-field(type='text', placeholder='输入你的名字')
+          label.login-field-icon.fui-user(for='login-name')
+        .form-group
+          input#password.form-control.login-field(type='password', placeholder='输入你的密码')
+          label.login-field-icon.fui-lock(for='login-pass')
+        p(style="text-align:center;")
+          button.btn.btn-primary.btn-lg#login_btn 登陆
+
+block append scripts
+  script(type='text/javascript', src='/dist/js/login.js')

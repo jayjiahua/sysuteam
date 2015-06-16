@@ -1,0 +1,30 @@
+extends ./layout/default.jade
+include ./mixins/create.jade
+
+block title
+  title 中大TEAM-创建活动
+
+block append style
+  link(rel='stylesheet', href='/dist/css/sysuteam/create.css')
+
+block content
+  h3.text-center 创建新活动
+  .container
+    form(method="POST")
+      .row
+        +title
+        +type
+        +datepicker
+      .row
+        +team_limit
+        +people_limit
+        +tag
+      +ueditor
+      input(name='info' id="uecontent" type="hidden")
+      .row.submit
+        .col-md-2.col-sm-2
+          button.btn.btn-primary.btn-lg#submit(type='submit', name='person_activity_create') 提交
+
+block append scripts
+  script(type="text/javascript") $('#datetimepicker').datetimepicker();
+  script(type='text/javascript', src='/dist/js/ue_submit.js')

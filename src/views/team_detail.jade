@@ -1,0 +1,21 @@
+extends ./layout/default.jade
+include ./mixins/detail.jade
+
+block title
+  title 中大TEAM-队伍详情
+
+block append style
+  link(rel='stylesheet', href='/dist/css/sysuteam/detail.css')
+
+block content
+  .container
+    +activity_post
+    +team_info
+    //+new_member
+    +team_member
+    hr
+    //+comments
+    //+ueditor
+
+block append scripts
+  script(type='text/javascript', src='/dist/js/join.js')
