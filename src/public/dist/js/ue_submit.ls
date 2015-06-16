@@ -4,7 +4,7 @@ window.onload = ->
     #把内容绑定到input中
     $ '#submit' .click ->
         content = UE.getEditor 'editor' .getContent!
-        $ '#info' .val content
+        $ '#uecontent' .val content
     #实例化日期选择器
     #$ '#datetimepicker' .datetimepicker!
     #追加内容

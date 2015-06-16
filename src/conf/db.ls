@@ -7,7 +7,7 @@ mysql = require 'mysql'
 config = {
     host: 'localhost', 
     user: 'root',
-    password: 'root', #这是我的密码啊- -你们测试要改
+    password: '000ooo', #这是我的密码啊- -你们测试要改
     database:'web_course',
     port: 3306
 }

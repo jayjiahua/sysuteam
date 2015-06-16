@@ -21,7 +21,8 @@ module.exports = (user, team, activity)->
       activity.get-all-personal-activities req, res
     else
       res.cookie 'visit', true
-      res.render 'start'
+      #res.render 'start'
+      res.redirect '/register'
 
   router.get '/createteam', is-authenticated, (req, res)!->
     res.render 'person_team_create', user: req.cookies.user
@@ -36,7 +37,8 @@ module.exports = (user, team, activity)->
     team.add-team-in-activity req, res, req.params.activityid
 
   router.get '/userinfo', is-authenticated, (req, res)!->
-    res.render 'userinfo'
+    user.query-user req, res, req.cookies.user.id
+    # res.render 'userinfo'
   
   router.get '/createactivity', is-authenticated, (req, res)!->
     res.render 'sponsor_activity_create'
@@ -44,8 +46,8 @@ module.exports = (user, team, activity)->
   router.get '/activitydetail/:activityid', (req, res)!->
     activity.get-one-activity req, res, parse-int req.params.activityid
   
-  router.get '/start', (req, res)!->
-    res.render 'start'
+  # router.get '/start', (req, res)!->
+  #   res.render 'start'
   router.get '/createactivity', (req, res)!->
     res.render 'sponsor_activity_create'
 
