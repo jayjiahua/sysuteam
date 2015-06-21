@@ -4,6 +4,11 @@
 
 ## install & start development
 1. install mysql
+    * npm install mysql
+    * mysql -u root -p
+    * root
+    * source $sysuteam/doc/allModel.sql
+    * source $sysuteam/doc/initdata.sql
 3. npm install
 4. grunt watch
 5. http://localhost:5000
